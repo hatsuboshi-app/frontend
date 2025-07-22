@@ -1,0 +1,3 @@
+[submodule "app/types"]
+	path = app/types
+	url = https://github.com/hatsuboshi-app/types

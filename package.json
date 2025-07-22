@@ -1,0 +1,29 @@
+{
+  "name": "hatsuboshi-frontend",
+  "version": "1.0.0",
+  "description": "The frontend application for Hatsuboshi App.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hatsuboshi-app/frontend.git"
+  },
+  "license": "MIT",
+  "author": "HuzzNZ",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.4.2"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4"
+  }
+}
