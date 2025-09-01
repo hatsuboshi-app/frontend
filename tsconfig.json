@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "es2022",
     "lib": [
       "dom",
       "dom.iterable",
@@ -24,9 +24,6 @@
     "paths": {
       "@/*": [
         "./app/*"
-      ],
-      "@types": [
-        "./app/types/src"
       ]
     },
     "isolatedModules": true
