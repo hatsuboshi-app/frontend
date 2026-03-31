@@ -1,1 +1,81 @@
 @import "tailwindcss";
+
+@theme {
+    /* colors */
+    --color-background-dark: #25262b;
+    --color-border-dark: rgba(75, 85, 99, 0.5);
+    --color-primary-dark: rgba(255, 255, 255, 0.87);
+    --color-secondary-dark: rgb(117, 121, 126);
+
+    --color-accent: rgb(255, 101, 16);
+    --color-highlight: rgb(46, 152, 246);
+
+
+    /* mobile */
+    --spacing-lg-mobile-gap: 10px;
+    --spacing-sm-mobile-gap: 6px;
+
+
+    /* tablet */
+    --breakpoint-tablet: 592px;             /* min sum (2x tablet gap) */
+    --breakpoint-tablet-wide: 832px;        /* max sum (2x tablet gap) */
+
+    --spacing-lg-tablet-gap: 20px;
+    --spacing-sm-tablet-gap: 12px;
+
+    --spacing-min-tablet-nav: 72px;
+    --spacing-min-tablet-main: 480px;
+
+    --spacing-max-tablet-nav: 72px;
+    --spacing-max-tablet-main: 720px;
+
+
+    /* laptop */
+    --breakpoint-laptop: 840px;             /* min sum (2x laptop gap) */
+    --breakpoint-laptop-wide: 1112px;       /* max sum (2x laptop gap) */
+
+    --spacing-lg-laptop-gap: 30px;
+    --spacing-sm-laptop-gap: 18px;
+
+    --spacing-min-laptop-nav: 180px;
+    --spacing-min-laptop-main: 600px;
+
+    --spacing-max-laptop-nav: 272px;
+    --spacing-max-laptop-main: 780px;
+
+
+    /* desktop */
+    --breakpoint-desktop: 1338px;           /* min sum (3x laptop gap) */
+    --breakpoint-desktop-wide: 1810px;      /* max sum (3x laptop gap) */
+
+    --spacing-min-desktop-nav: 272px;
+    --spacing-min-desktop-main: 680px;
+
+    --spacing-max-desktop-nav: 340px;
+    --spacing-max-desktop-main: 960px;
+
+
+    /* sidenav (desktop only) */
+    --spacing-min-sidenav: 296px;
+    --spacing-max-sidenav: 420px;
+}
+
+.xl {
+    @apply text-[36px] tablet:text-[40px] laptop:text-[48px]
+}
+
+.lg {
+    @apply text-[20px] tablet:text-[22.5px] laptop:text-[27px]
+}
+
+.md {
+    @apply text-[12px] tablet:text-[13.5px] laptop:text-[16px]
+}
+
+.sm {
+    @apply text-[9px] tablet:text-[10px] laptop:text-[12px]
+}
+
+.xs {
+    @apply text-[8.5px] tablet:text-[9px] laptop:text-[10px]
+}
