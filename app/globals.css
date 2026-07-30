@@ -3,6 +3,8 @@
 @theme {
     /* colors */
     --color-background-dark: #25262b;
+    --color-background-inset-dark: #212123;
+    --color-background-layer-dark: #2f2f32;
     --color-border-dark: rgba(75, 85, 99, 0.5);
     --color-primary-dark: rgba(255, 255, 255, 0.87);
     --color-secondary-dark: rgb(117, 121, 126);
@@ -13,7 +15,8 @@
 
     /* mobile */
     --spacing-lg-mobile-gap: 10px;
-    --spacing-sm-mobile-gap: 6px;
+    --spacing-sm-mobile-gap: 8px;
+    --spacing-xs-mobile-gap: 6px;
 
 
     /* tablet */
@@ -21,7 +24,8 @@
     --breakpoint-tablet-wide: 832px;        /* max sum (2x tablet gap) */
 
     --spacing-lg-tablet-gap: 20px;
-    --spacing-sm-tablet-gap: 12px;
+    --spacing-sm-tablet-gap: 14px;
+    --spacing-xs-tablet-gap: 10px;
 
     --spacing-min-tablet-nav: 72px;
     --spacing-min-tablet-main: 480px;
@@ -36,6 +40,7 @@
 
     --spacing-lg-laptop-gap: 30px;
     --spacing-sm-laptop-gap: 18px;
+    --spacing-xs-laptop-gap: 14px;
 
     --spacing-min-laptop-nav: 180px;
     --spacing-min-laptop-main: 600px;
@@ -60,20 +65,24 @@
     --spacing-max-sidenav: 420px;
 }
 
-.xl {
+.xxl {
     @apply text-[36px] tablet:text-[40px] laptop:text-[48px]
 }
 
-.lg {
+.xl {
     @apply text-[20px] tablet:text-[22.5px] laptop:text-[27px]
 }
 
+.lg {
+    @apply text-[16px] tablet:text-[16.5px] laptop:text-[19px]
+}
+
 .md {
-    @apply text-[12px] tablet:text-[13.5px] laptop:text-[16px]
+    @apply text-[14px] tablet:text-[14.5px] laptop:text-[16px]
 }
 
 .sm {
-    @apply text-[9px] tablet:text-[10px] laptop:text-[12px]
+    @apply text-[11px] tablet:text-[11px] laptop:text-[12px]
 }
 
 .xs {

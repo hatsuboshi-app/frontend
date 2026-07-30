@@ -14,8 +14,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@hatsuboshi/types": "^0.1.0",
-    "next": "16.2.1",
+    "@hatsuboshi/types": "^1.2.5",
+    "dotenv": "^17.4.2",
+    "lz-string": "^1.5.0",
+    "next": "^16.3.0-preview.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tsup": "^8.5.0"
