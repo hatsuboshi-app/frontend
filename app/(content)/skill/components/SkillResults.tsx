@@ -1,4 +1,4 @@
-import { getSkills } from "@/lib/api/Skill"
+import { getSkills } from "@/lib/api/data/Skill"
 import SkillIcon from "@/components/data/Skill/SkillIcon"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
 import Paginator from "@/components/data/Paginator/Paginator"
