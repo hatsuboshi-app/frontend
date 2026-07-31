@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react"
 import WidgetFrame from "@/components/widget/WidgetFrame"
 import { usePathname } from "next/navigation"
-import { Nullable } from "@hatsuboshi/types";
+import { Nullable } from "@hatsuboshi/types"
+import SkillSearchWidget from "@/components/widget/SkillSearchWidget"
 
 const searchElements = {
-    "/skill": "Skills",
+    "/skill": <SkillSearchWidget/>,
     "/pidol": "PIdols"
 }
 

@@ -6,17 +6,24 @@ import NavMain from "@/components/nav/NavMain"
 export default function Nav() {
     return (
         <div className={`
-            flex flex-col items-center text-center h-full w-full
-            border-r border-border-dark
-            tablet:py-sm-tablet-gap
-            laptop:py-sm-laptop-gap
+            flex flex-row justify-center items-center text-center w-full relative
+            tablet:justify-start tablet:flex-col h-14 tablet:h-full tablet:border-r tablet:border-border-dark
+            tablet:py-sm-tablet-gap tablet:gap-y-sm-tablet-gap
+            laptop:py-sm-laptop-gap laptop:gap-y-sm-laptop-gap
         `}>
-            <div className={"flex items-center tablet:my-sm-tablet-gap laptop:my-sm-laptop-gap"}>
+            <div className={`flex items-center`}>
                 <NavLogo/>
             </div>
-            <NavMain/>
-            <div className={"flex-grow"}/>
-            <NavFooter/>
+            <div className={"hidden tablet:block"}>
+                <NavMain/>
+            </div>
+            <div className={"hidden tablet:block flex-grow"}/>
+            <div className={"hidden tablet:block"}>
+                <NavFooter/>
+            </div>
+            <button className={"absolute tablet:hidden top-0 left-0 h-14 w-14 hover:cursor-pointer text-secondary-dark hover:text-primary-dark transition-colors select none"}>
+                =
+            </button>
         </div>
     )
 }

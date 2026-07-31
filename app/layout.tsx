@@ -20,13 +20,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body className={`
             bg-background-dark text-primary-dark
             ${IBMPlexSansJP.className} font-semibold
-            antialiased flex flex-row md
+            antialiased flex flex-col tablet:flex-row md
             max-w-screen w-screen min-h-screen
             overflow-x-hidden -mr-[calc(100vw-100%)]
         `}>
             <nav className={`
-                hidden sticky top-0 tablet:flex
-                flex-grow h-screen max-h-screen
+                sticky top-0 flex
+                flex-none h-max
+                tablet:flex-grow tablet:h-screen tablet:max-h-screen
                 tablet:max-w-max-tablet-nav    tablet:min-w-min-tablet-nav
                 laptop:max-w-max-laptop-nav    laptop:min-w-min-laptop-nav
                 desktop:max-w-max-desktop-nav  desktop:min-w-min-desktop-nav
@@ -53,8 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 desktop:gap-x-sm-laptop-gap
             `}>
                 <div className={`
-                    flex flex-grow
-                    w-full
+                    flex flex-grow w-full
                     tablet:max-w-max-tablet-main    tablet:min-w-min-tablet-main
                     laptop:max-w-max-laptop-main    laptop:min-w-min-laptop-main
                     desktop:max-w-max-desktop-main  desktop:min-w-min-desktop-main
