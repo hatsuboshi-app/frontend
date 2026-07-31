@@ -1,12 +1,12 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react"
 
 export default function WidgetFrame({ children }: PropsWithChildren) {
     return (
         <div className={`
-            w-full border border-border-dark bg-background-dark rounded-lg relative min-h-12
-            px-xs-mobile-gap py-xs-mobile-gap
-            tablet:px-xs-tablet-gap tablet:py-xs-tablet-gap
-            laptop:px-xs-laptop-gap laptop:py-xs-laptop-gap
+            w-full border border-border-dark bg-background-dark rounded-hatsuboshi-lg relative min-h-14
+            px-sm-mobile-gap py-xs-mobile-gap
+            tablet:px-sm-tablet-gap tablet:py-xs-tablet-gap
+            laptop:px-sm-laptop-gap laptop:py-xs-laptop-gap
         `}>
             <div className={`
                 flex flex-row-reverse absolute rounded-r-xl
@@ -14,8 +14,11 @@ export default function WidgetFrame({ children }: PropsWithChildren) {
                 tablet:gap-x-sm-tablet-gap
                 laptop:gap-x-sm-laptop-gap
             `}>
-                <button className={"h-12 w-12 hover:cursor-pointer text-secondary-dark hover:text-primary-dark transition-colors"} onClick={() => {}}>
-                    E
+                <button
+                    className={"h-14 w-14 hover:cursor-pointer text-secondary-dark hover:text-primary-dark transition-colors"}
+                    onClick={() => {}}
+                >
+                    X
                 </button>
             </div>
             <div>

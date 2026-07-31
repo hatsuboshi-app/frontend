@@ -1,7 +1,7 @@
-import { getSkills } from "@/lib/api/data/Skill"
-import SkillIcon from "@/components/data/Skill/SkillIcon"
+import { getSkills } from "@/lib/api/data/skill"
+import SkillIcon from "@/components/data/skill/SkillIcon"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
-import Paginator from "@/components/data/Paginator/Paginator"
+import Paginator from "@/components/data/paginator/Paginator"
 
 export default async function SkillResults () {
     const res = await getSkills()
@@ -15,4 +15,3 @@ export default async function SkillResults () {
         </div>
     )
 }
-

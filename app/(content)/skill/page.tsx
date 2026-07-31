@@ -1,4 +1,4 @@
-import SkillResults from "@/(content)/skill/components/SkillResults"
+import SkillResults from "@/components/data/skill/SkillResults"
 import { Suspense } from "react";
 
 export default async function Page() {

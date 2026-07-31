@@ -1,6 +1,4 @@
-"use client"
-
-import { setUserPerPage } from "@/lib/api/cookies/perPage";
+import { setUserPerPage } from "@/lib/api/cookies/perPage"
 
 export default function PageSizeSetter({ currentPerPage }: { currentPerPage: number }) {
     const perPageValues = [10, 15, 30]

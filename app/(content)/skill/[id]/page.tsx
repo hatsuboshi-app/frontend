@@ -1,4 +1,4 @@
-import { getSkillById } from "@/lib/api/data/Skill"
+import { getSkillById } from "@/lib/api/data/skill"
 import { notFound } from "next/navigation"
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {

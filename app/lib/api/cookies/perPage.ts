@@ -1,7 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { PER_PAGE } from "@/lib/consts"
+import { PER_PAGE } from "@/lib/data/consts"
 
 const cookieName = "per-page"
 

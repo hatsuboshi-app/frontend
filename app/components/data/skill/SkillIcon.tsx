@@ -1,5 +1,3 @@
-"use client"
-
 import Link from "next/link"
 import { ISkill, Skill } from "@hatsuboshi/types"
 import SkillUpgradeState from "@hatsuboshi/types/dist/type/SkillUpgradeState"
@@ -7,7 +5,12 @@ import SkillUpgradeState from "@hatsuboshi/types/dist/type/SkillUpgradeState"
 export default function SkillIcon ({ skill, upgradeState }: { skill: ISkill, upgradeState?: SkillUpgradeState }) {
     const s = new Skill(skill, upgradeState)
     return (
-        <div className={"leading-relaxed py-xs-laptop-gap px-xs-laptop-gap border border-border-dark flex flex-col sm rounded-lg"}>
+        <div className={`
+            leading-relaxed border border-border-dark flex flex-col sm rounded-lg
+            py-xs-mobile-gap px-sm-mobile-gap
+            tablet:py-xs-tablet-gap tablet:px-sm-tablet-gap
+            laptop:py-xs-laptop-gap laptop:px-sm-laptop-gap
+        `}>
             <Link href={`/skill/${s.id.replace("skill-", "")}`}>
                 <div className={"md"}>
                     <span>{s.name.ja}</span>

@@ -1,6 +1,6 @@
 "use client"
 
-import PageSizeSetter from "@/components/data/Paginator/PageSizeSetter"
+import PageSizeSetter from "@/components/data/paginator/PageSizeSetter"
 
 export default function Paginator({ tp, pp }: any) {
     return (

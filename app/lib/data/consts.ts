@@ -11,6 +11,8 @@ export let COND_SEPARATOR = ","
 export let PARAM_DELIMITER = ":"
 export let PARAM_SEPARATOR = ";"
 
+export let MAX_P_LEVEL = 80
+
 switch (process.env.NEXT_PUBLIC_ENV) {
     case "production": {
         API_URI = `https://api.hatsuboshi.app/${API_VERSION}`

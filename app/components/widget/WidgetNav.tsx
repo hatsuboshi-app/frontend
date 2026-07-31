@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import WidgetFrame from "@/components/widget/WidgetFrame"
 import { usePathname } from "next/navigation"
 import { Nullable } from "@hatsuboshi/types"
-import SkillSearchWidget from "@/components/widget/SkillSearchWidget"
+import SkillSearchWidget from "@/components/widget/SkillFilterWidget"
 
 const searchElements = {
     "/skill": <SkillSearchWidget/>,
