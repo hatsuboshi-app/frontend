@@ -60,8 +60,6 @@
     --spacing-min-desktop-main: 680px;
     --spacing-max-desktop-main: 960px;
 
-
-    /* sidenav (desktop only) */
     --spacing-min-sidenav: 296px;
     --spacing-max-sidenav: 420px;
 }
@@ -75,19 +73,23 @@
 }
 
 .lg {
-    @apply text-[16px] tablet:text-[16.5px] laptop:text-[19px]
+    @apply text-[16px] laptop:text-[19px]
 }
 
 .md {
-    @apply text-[14px] tablet:text-[14.5px] laptop:text-[16px]
+    @apply text-[14.5px] laptop:text-[16px]
 }
 
 .sm {
-    @apply text-[11px] tablet:text-[11px] laptop:text-[12px]
+    @apply text-[11.5px] laptop:text-[12px]
 }
 
 .xs {
-    @apply text-[8.5px] tablet:text-[9px] laptop:text-[10px]
+    @apply text-[9px] laptop:text-[10px]
+}
+
+.form-label {
+    @apply uppercase font-normal tracking-wider text-secondary-dark mb-1
 }
 
 .p-text-element {

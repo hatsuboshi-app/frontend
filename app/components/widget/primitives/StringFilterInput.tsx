@@ -10,7 +10,7 @@ export default function StringFilterInput({ defaultValue, onChange, title }: Fil
 
     return (
         <div className={"flex flex-col"}>
-            {title && <label className={"sm uppercase font-normal tracking-wider text-secondary-dark mb-1"} htmlFor={title}>{title}</label>}
+            {title && <label className={"form-label sm"} htmlFor={title}>{title}</label>}
             <div className={"relative h-max w-full flex"}>
                 <input
                     id={title}
@@ -19,7 +19,7 @@ export default function StringFilterInput({ defaultValue, onChange, title }: Fil
                     placeholder={"Search"}
                     onChange={e => setValue(e.target.value)}
                     className={`
-                        flex-grow rounded-hatsuboshi p-text-element sm font-normal placeholder-secondary-dark hover:outline-border-hover-dark transition-colors
+                        w-full rounded-hatsuboshi p-text-element sm font-normal placeholder-secondary-dark hover:outline-border-hover-dark transition-colors
                         outline focus:outline-accent
                         ${value !== "" ? "outline-accent" : "outline-border-dark"}
                     `}

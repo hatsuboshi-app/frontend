@@ -3,26 +3,20 @@
 import React, { useEffect, useState } from "react"
 import WidgetFrame from "@/components/widget/WidgetFrame"
 import { usePathname } from "next/navigation"
-import { Nullable } from "@hatsuboshi/types"
-import SkillSearchWidget from "@/components/widget/SkillFilterWidget"
+import SkillFilterWidget from "@/components/widget/SkillFilterWidget"
 
-const searchElements = {
-    "/skill": <SkillSearchWidget/>,
+const searchElements: { [key: string]: React.ReactNode } = {
+    "/skill": <SkillFilterWidget/>,
     "/pidol": "PIdols"
 }
 
 export default function WidgetNav() {
     const pathname = usePathname()
-    let searchElement: Nullable<React.ReactNode> = null
     const [clientPathname, setClientPathname] = useState('')
 
     useEffect(() => {
         setClientPathname(pathname)
     }, [pathname])
-
-    for (const [key, value] of Object.entries(searchElements)) {
-        if (clientPathname.startsWith(key)) searchElement = value
-    }
 
     return (
         <div className={`
@@ -31,9 +25,9 @@ export default function WidgetNav() {
             tablet:gap-y-sm-tablet-gap
             laptop:gap-y-sm-laptop-gap
         `}>
-            {searchElement &&
+            {searchElements[clientPathname] &&
             <WidgetFrame>
-                {searchElement}
+                {searchElements[clientPathname]}
             </WidgetFrame>
             }
             <WidgetFrame>

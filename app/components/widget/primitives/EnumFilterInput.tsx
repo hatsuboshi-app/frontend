@@ -18,7 +18,7 @@ export default function EnumFilterInput<T>({ defaultValue, onChange, title, data
 
     return (
         <div className={"flex flex-col"}>
-            {title && <p className={"sm uppercase font-normal tracking-wider text-secondary-dark mb-1"}>{title}</p>}
+            {title && <p className={"form-label sm"}>{title}</p>}
             <div className={"flex flex-row flex-wrap gap-1.5"}>
                 {data.map((d, i) => {
                     const isSelected = selected.includes(d.value)

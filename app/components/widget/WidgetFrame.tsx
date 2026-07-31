@@ -4,9 +4,9 @@ export default function WidgetFrame({ children }: PropsWithChildren) {
     return (
         <div className={`
             w-full border border-border-dark bg-background-dark rounded-hatsuboshi-lg relative min-h-14
-            px-sm-mobile-gap py-xs-mobile-gap
-            tablet:px-sm-tablet-gap tablet:py-xs-tablet-gap
-            laptop:px-sm-laptop-gap laptop:py-xs-laptop-gap
+            p-lg-mobile-gap
+            tablet:p-sm-tablet-gap
+            laptop:p-sm-laptop-gap
         `}>
             <div className={`
                 flex flex-row-reverse absolute rounded-r-xl

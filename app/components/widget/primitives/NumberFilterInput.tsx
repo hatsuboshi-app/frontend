@@ -15,7 +15,7 @@ export default function NumberFilterInput({ defaultValue, onChange, title }: Fil
 
     return (
         <div className={"flex flex-col"}>
-            {title && <p className={"sm uppercase font-normal tracking-wider text-secondary-dark mb-1"}>{title}</p>}
+            {title && <p className={"form-label sm"}>{title}</p>}
             <DualRangeSlider
                 defaultValue={[defaultValue?.gte ?? defaultMin, defaultValue?.lte ?? defaultMax]}
                 min={defaultMin}
