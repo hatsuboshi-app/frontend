@@ -1,7 +1,7 @@
 // api
 
-export const API_URI = process.env.API_URI ?? "http://localhost:3001"
-export const API_VERSION = process.env.API_VERSION ?? "v1"
+export const API_URI = process.env.NEXT_PUBLIC_API_URI ?? "http://localhost:3001"
+export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION ?? "v1"
 
 // filter expand/minimize
 
