@@ -1,4 +1,4 @@
-import { Plan, SkillCategory, SkillSource } from "@hatsuboshi/types"
+import { Plan, SkillCategory, SkillFilterOptions, SkillSource } from "@hatsuboshi/types"
 import { EnumData } from "@/lib/util/types"
 import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity"
 
@@ -93,3 +93,13 @@ export const skillSources: EnumData<SkillSource>[] = [
         displayIcon: null
     }
 ]
+
+export const skillFlags: EnumData<keyof SkillFilterOptions>[] = [
+    {
+        value: "isCustomizable",
+        displayText: "Customizable",
+        displayIcon: null
+    }
+]
+
+export const skillFlagKeys: (keyof SkillFilterOptions)[] = ["isCustomizable"]

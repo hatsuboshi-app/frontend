@@ -1,48 +1,91 @@
-import { SkillFilterOptions } from "@hatsuboshi/types"
-import React, { useState } from "react"
-import { ReactSetter } from "@/lib/util/types"
+import React, { useEffect, useState } from "react"
 import StringFilterInput from "@/components/widget/primitives/StringFilterInput"
 import NumberFilterInput from "@/components/widget/primitives/NumberFilterInput"
 import EnumFilterInput from "@/components/widget/primitives/EnumFilterInput"
-import { skillCategories, skillPlans, skillRarities, skillSources } from "@/lib/data/skill"
+import { skillCategories, skillFlagKeys, skillFlags, skillPlans, skillRarities, skillSources } from "@/lib/data/skill"
 import FilterWidgetWrapper from "@/components/widget/wrappers/FilterWidgetWrapper"
-
-function handleStringFilterInput<T>(setFilter: ReactSetter<T>, field: keyof T, value: string) {
-    setFilter(f => {
-        const newFilter = { ...f } as T
-        (newFilter as any)[field] = value ? { type: "Search", search: value } : undefined
-        return newFilter
-    })
-}
-
-function handleNumberFilterInput<T>(setFilter: ReactSetter<T>, field: keyof T, value: { gte?: number, lte?: number }) {
-    setFilter(f => {
-        const newFilter = { ...f } as T
-        (newFilter as any)[field] = (value.gte !== undefined || value.lte !== undefined) ? value : undefined
-        return newFilter
-    })
-}
-
-function handleEnumFilterInput<T>(setFilter: ReactSetter<T>, field: keyof T, value: any[]) {
-    setFilter(f => {
-        const newFilter = { ...f } as T
-        (newFilter as any)[field] = value.length !== 0 ? { include: value } : undefined
-        return newFilter
-    })
-}
+import {
+    enumDefaultValueFromFilter,
+    handleBooleanFilterInput,
+    handleEnumFilterInput,
+    handleNumberFilterInput,
+    handleStringFilterInput,
+    numberDefaultValueFromFilter,
+    skillConsolidateRarity,
+    skillDeconsolidateRarity,
+    skillFilterExpand,
+    skillFilterMinimize, stringDefaultValueFromFilter
+} from "@/lib/util/functions"
+import BooleanFilterInput from "@/components/widget/primitives/BooleanFilterInput"
+import useThrottledCallback from "@/lib/hooks/useThrottledCallback"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string"
+import useDebouncer from "@/lib/hooks/useDebouncer"
+import { SEARCH_PARAM_FILTER } from "@/lib/data/consts"
 
 export default function SkillFilterWidget() {
-    const [filter, setFilter] = useState<SkillFilterOptions>({})
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const existingFilter = searchParams.get(SEARCH_PARAM_FILTER)
+    const initialFilter = existingFilter ? skillFilterExpand(decompressFromEncodedURIComponent(existingFilter)) ?? {} : {}
+    const [filter, setFilter] = useState(initialFilter)
+    const [debouncedFilter, _] = useDebouncer(filter, 700)
+
+    const throttledPushUrl = useThrottledCallback((params: URLSearchParams) => {
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    }, [pathname, router], 2000)
+
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams.toString())
+        if (Object.keys(debouncedFilter).length === 0) params.delete(SEARCH_PARAM_FILTER)
+        else params.set(SEARCH_PARAM_FILTER, compressToEncodedURIComponent(skillFilterMinimize(debouncedFilter) ?? ""))
+        if (params.toString() !== searchParams.toString()) throttledPushUrl(params)
+    }, [debouncedFilter])
 
     return (
         <FilterWidgetWrapper>
             <p className={"lg"}>Search Skills</p>
-            <StringFilterInput title={"Name"} onChange={v => handleStringFilterInput(setFilter, "name", v)}/>
-            <EnumFilterInput title={"Rarity"} data={skillRarities} onChange={v => handleEnumFilterInput(setFilter, "rarity", v)}/>
-            <NumberFilterInput title={"Unlocking Level"} onChange={v => handleNumberFilterInput(setFilter, "unlockLevel", v)}/>
-            <EnumFilterInput title={"Plan"} data={skillPlans} onChange={v => handleEnumFilterInput(setFilter, "plan", v)}/>
-            <EnumFilterInput title={"Category"} data={skillCategories} onChange={v => handleEnumFilterInput(setFilter, "category", v)}/>
-            <EnumFilterInput title={"Card Source"} data={skillSources} onChange={v => handleEnumFilterInput(setFilter, "source", v)}/>
+            <StringFilterInput
+                title={"Name"}
+                defaultValue={stringDefaultValueFromFilter(filter.name)}
+                onChange={v => handleStringFilterInput(setFilter, "name", v)}
+            />
+            <EnumFilterInput
+                title={"Rarity"}
+                data={skillRarities}
+                defaultValue={skillConsolidateRarity(enumDefaultValueFromFilter(filter.rarity) ?? [])}
+                onChange={v => handleEnumFilterInput(setFilter, "rarity", skillDeconsolidateRarity(v))}
+            />
+            <NumberFilterInput
+                title={"Unlocking Level"}
+                defaultValue={numberDefaultValueFromFilter(filter.unlockLevel)}
+                onChange={v => handleNumberFilterInput(setFilter, "unlockLevel", v)}
+            />
+            <EnumFilterInput
+                title={"Plan"}
+                data={skillPlans}
+                defaultValue={enumDefaultValueFromFilter(filter.plan)}
+                onChange={v => handleEnumFilterInput(setFilter, "plan", v)}
+            />
+            <EnumFilterInput
+                title={"Category"}
+                data={skillCategories}
+                defaultValue={enumDefaultValueFromFilter(filter.category)}
+                onChange={v => handleEnumFilterInput(setFilter, "category", v)}
+            />
+            <EnumFilterInput
+                title={"Card Source"}
+                data={skillSources}
+                defaultValue={enumDefaultValueFromFilter(filter.source)}
+                onChange={v => handleEnumFilterInput(setFilter, "source", v)}
+            />
+            <BooleanFilterInput
+                title={"Others"}
+                data={skillFlags}
+                defaultValue={skillFlagKeys.reduce((a, v) => (filter[v] !== undefined ? { ...a, [v]: filter[v] as boolean } : a), {})}
+                onChange={v => handleBooleanFilterInput(setFilter, skillFlagKeys, v)}
+            />
         </FilterWidgetWrapper>
-    )
+    );
 }

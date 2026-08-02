@@ -1,6 +1,14 @@
 import React from "react"
+import { SortOption } from "@hatsuboshi/types"
 
 export type ReactSetter<T> = React.Dispatch<React.SetStateAction<T>>
+
+export type GetOptions<F, I> = {
+    filter?: F,
+    sort?: SortOption<I>[],
+    p?: number,
+    pp?: number
+}
 
 export type FilterInputProps<V> = {
     title?: string

@@ -2,9 +2,11 @@ import { getSkills } from "@/lib/api/data/skill"
 import SkillIcon from "@/components/data/skill/SkillIcon"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
 import Paginator from "@/components/data/paginator/Paginator"
+import { SkillFilterOptions } from "@hatsuboshi/types";
 
-export default async function SkillResults () {
-    const res = await getSkills()
+export default async function SkillResults ({ filter }: { filter?: SkillFilterOptions }) {
+    const res = await getSkills({ filter })
+    if (!res.success) return null
     const skills = res.data
     const pp = await getUserPerPage()
 

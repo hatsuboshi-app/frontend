@@ -1,17 +1,25 @@
 import { FilterInputProps } from "@/lib/util/types"
-import React from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import DualRangeSlider from "@/components/input/DualRangeSlider"
 import { MAX_P_LEVEL } from "@/lib/data/consts"
+import useDebouncer from "@/lib/hooks/useDebouncer"
 
 export default function NumberFilterInput({ defaultValue, onChange, title }: FilterInputProps<{ gte?: number, lte?: number }>) {
     const [defaultMin, defaultMax] = [0, MAX_P_LEVEL]
-    const handleSliderChange = ((v: [number, number]) => {
+    const [range, setRange] = useState<{ gte?: number, lte?: number }>({})
+    const [debouncedRange, _] = useDebouncer(range)
+
+    const handleSliderChange = useCallback((v: [number, number]) => {
         const [gte, lte] = v
-        onChange?.({
+        setRange({
             gte: gte !== defaultMin ? gte : undefined,
             lte: lte !== defaultMax ? lte : undefined
         })
-    })
+    }, [setRange])
+
+    useEffect(() => {
+        onChange?.(debouncedRange)
+    }, [debouncedRange])
 
     return (
         <div className={"flex flex-col"}>

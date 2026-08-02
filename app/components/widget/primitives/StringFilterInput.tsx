@@ -1,12 +1,14 @@
 import { FilterInputProps } from "@/lib/util/types"
 import React, { useEffect, useState } from "react"
+import useDebouncer from "@/lib/hooks/useDebouncer"
 
 export default function StringFilterInput({ defaultValue, onChange, title }: FilterInputProps<string>) {
     const [value, setValue] = useState(defaultValue ?? "")
+    const [debouncedValue, setValueInstantly] = useDebouncer(value)
 
     useEffect(() => {
-        onChange?.(value)
-    }, [value])
+        onChange?.(debouncedValue)
+    }, [debouncedValue])
 
     return (
         <div className={"flex flex-col"}>
@@ -19,13 +21,18 @@ export default function StringFilterInput({ defaultValue, onChange, title }: Fil
                     placeholder={"Search"}
                     onChange={e => setValue(e.target.value)}
                     className={`
-                        w-full rounded-hatsuboshi p-text-element sm font-normal placeholder-secondary-dark hover:outline-border-hover-dark transition-colors
+                        w-full rounded-hatsuboshi p-text-element sm font-normal placeholder-secondary-dark transition-colors
                         outline focus:outline-accent
-                        ${value !== "" ? "outline-accent" : "outline-border-dark"}
+                        ${ value !== ""
+                        ? "outline-accent hover:outline-accent/80"
+                        : "outline-border-dark hover:outline-border-hover-dark" }
                     `}
                 />
                 <button
-                    onClick={_ => setValue("")}
+                    onClick={_ => {
+                        setValue("")
+                        setValueInstantly("")
+                    }}
                     className={`
                         ${value !== '' ? 'block' : 'hidden'}
                         absolute right-0 h-full aspect-square sm text-secondary-dark

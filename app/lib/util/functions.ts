@@ -1,11 +1,13 @@
 import { PersistentObjectFilterOptions } from "@hatsuboshi/types/dist/class/abstract/PersistentObject"
 import {
-    DateFilterOptions,
+    DateFilterOptions, encodeSortOptions,
     EnumFilterOptions,
     LocaleStringFilterOptions,
-    NumberFilterOptions, SkillFilterOptions
+    NumberFilterOptions, SkillFilterOptions, SkillRarity
 } from "@hatsuboshi/types"
-import { COND_SEPARATOR, PARAM_DELIMITER, PARAM_SEPARATOR } from "@/lib/data/consts"
+import { API_URI, API_VERSION, COND_SEPARATOR, PARAM_DELIMITER, PARAM_SEPARATOR } from "@/lib/data/consts"
+import { GetOptions, ReactSetter } from "@/lib/util/types"
+import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity";
 
 export function getHeader(): Headers {
     const headers: Headers = new Headers()
@@ -14,23 +16,30 @@ export function getHeader(): Headers {
     return headers
 }
 
+export function getURL<F, I>(path: string = "", { filter, sort, p, pp }: GetOptions<F, I> = {}): string {
+    const url = new URL(`${API_VERSION}/${path}`, API_URI)
+    if (filter !== undefined) url.searchParams.set("f", JSON.stringify(filter))
+    if (sort !== undefined) url.searchParams.set("s", encodeSortOptions(sort))
+    if (p !== undefined) url.searchParams.set("p", p.toString())
+    if (pp !== undefined) url.searchParams.set("pp", pp.toString())
+    return url.href
+}
+
 export function formatMinimizedParam(key: string, condition: string | undefined): string | undefined {
     if (condition === undefined) return undefined
     return `${key}${PARAM_DELIMITER}${condition}`
 }
 
-export function ISOToShortDate(date: string): string {
-    const d = new Date(date)
-    const year = String(d.getUTCFullYear())
-    const month = String(d.getUTCMonth() + 1)
-    const day = String(d.getUTCDate())
-    return `${year}${month.padStart(2, "0")}${day.padStart(2, "0")}`
-}
-export function shortToISODate(short: string): string {
-    const [year, month, day] = [short.slice(0, 4), short.slice(4, 6), short.slice(6, 8)]
-    return new Date(Number(year), Number(month) - 1, Number(day)).toISOString()
-}
+// string
 
+export function handleStringFilterInput<T>(setFilter: ReactSetter<T>, field: keyof T, value: string) {
+    setFilter(f => {
+        const newFilter = { ...f } as T
+        if (!value) delete (newFilter as any)[field]
+        else (newFilter as any)[field] = { type: "Search", search: value }
+        return newFilter
+    })
+}
 export function stringFilterExpand(s?: string): LocaleStringFilterOptions | undefined {
     /*
      * type: "Search"           -> ?
@@ -90,7 +99,20 @@ export function stringFilterMinimize(f?: LocaleStringFilterOptions): string | un
         return `!${f.missingJa ? "j" : ""}${f.missingEn ? "e" : ""}${f.missingRo ? "r" : ""}`
     }
 }
+export function stringDefaultValueFromFilter(f?: LocaleStringFilterOptions): string | undefined {
+    return f?.type === "Search" ? f.search : undefined
+}
 
+// number
+
+export function handleNumberFilterInput<T>(setFilter: ReactSetter<T>, field: keyof T, value: { gte?: number, lte?: number }) {
+    setFilter(f => {
+        const newFilter = { ...f } as T
+        if (value.gte === undefined && value.lte === undefined) delete (newFilter as any)[field]
+        else (newFilter as any)[field] = value
+        return newFilter
+    })
+}
 export function numberFilterExpand(s?: string): NumberFilterOptions | undefined {
     /*
      * lte -> <
@@ -126,43 +148,45 @@ export function numberFilterMinimize(f?: NumberFilterOptions): string | undefine
     }
     return conditions.join(COND_SEPARATOR)
 }
-
-export function dateFilterExpand(s?: string): DateFilterOptions | undefined {
-    /*
-     * before -> <
-     * after  -> >
-     */
-    if (s === undefined) return undefined
-    const o: DateFilterOptions = {}
-    const conditions = s.split(COND_SEPARATOR) ?? []
-    conditions.forEach(c => {
-        switch (c.at(0)) {
-            case "<": {
-                o.before = shortToISODate(c.slice(1))
-            } break
-            case ">": {
-                o.after = shortToISODate(c.slice(1))
-            }
-        }
-    })
-    return o
+export function numberDefaultValueFromFilter(f?: NumberFilterOptions): { gte?: number, lte?: number } | undefined {
+    return f
 }
-export function dateFilterMinimize(f?: DateFilterOptions): string | undefined {
+
+// boolean
+
+export function handleBooleanFilterInput<T>(setFilter: ReactSetter<T>, fields: (keyof T)[], value: Partial<Record<keyof T, boolean>>) {
+    setFilter(f => {
+        const newFilter = { ...f } as T
+        for (const field of fields) {
+            if (value[field] === undefined) delete (newFilter as any)[field]
+            else (newFilter as any)[field] = value[field]
+        }
+        return newFilter
+    })
+}
+export function booleanFilterExpand(s?: string): boolean | undefined {
+    if (s === undefined) return undefined
+    return s === "t" ? true : s === "f" ? false : undefined
+}
+export function booleanFilterMinimize(f?: boolean): string | undefined {
     /*
-     * before -> <
-     * after  -> >
+     * true  -> t
+     * false -> f
      */
     if (f === undefined) return undefined
-    const conditions: string[] = []
-    if (f.before) {
-        conditions.push(`<${ISOToShortDate(f.before)}`)
-    }
-    if (f.after) {
-        conditions.push(`>${ISOToShortDate(f.after)}`)
-    }
-    return conditions.join(COND_SEPARATOR)
+    return f ? "t" : "f"
 }
 
+// Enum
+
+export function handleEnumFilterInput<T>(setFilter: ReactSetter<T>, field: keyof T, value: any[]) {
+    setFilter(f => {
+        const newFilter = { ...f } as T
+        if (value.length === 0) delete (newFilter as any)[field]
+        else (newFilter as any)[field] = { include: value }
+        return newFilter
+    })
+}
 export function enumFilterExpand<T>(s?: string): EnumFilterOptions<T> | undefined {
     /*
      * include -> +[value]
@@ -200,19 +224,60 @@ export function enumFilterMinimize<T>(f?: EnumFilterOptions<T>): string | undefi
     f.exclude?.forEach(a => conditions.push(`-${a}`))
     return conditions.join(COND_SEPARATOR)
 }
-
-export function booleanFilterExpand(s?: string): boolean | undefined {
-    if (s === undefined) return undefined
-    return s === "t" ? true : s === "f" ? false : undefined
+export function enumDefaultValueFromFilter<T>(f?: EnumFilterOptions<T>): T[] | undefined {
+    return f?.include
 }
-export function booleanFilterMinimize(f?: boolean): string | undefined {
+
+// Date
+
+export function ISOToShortDate(date: string): string {
+    const d = new Date(date)
+    const year = String(d.getUTCFullYear())
+    const month = String(d.getUTCMonth() + 1)
+    const day = String(d.getUTCDate())
+    return `${year}${month.padStart(2, "0")}${day.padStart(2, "0")}`
+}
+export function shortToISODate(short: string): string {
+    const [year, month, day] = [short.slice(0, 4), short.slice(4, 6), short.slice(6, 8)]
+    return new Date(Number(year), Number(month) - 1, Number(day)).toISOString()
+}
+export function dateFilterExpand(s?: string): DateFilterOptions | undefined {
     /*
-     * true  -> t
-     * false -> f
+     * before -> <
+     * after  -> >
+     */
+    if (s === undefined) return undefined
+    const o: DateFilterOptions = {}
+    const conditions = s.split(COND_SEPARATOR) ?? []
+    conditions.forEach(c => {
+        switch (c.at(0)) {
+            case "<": {
+                o.before = shortToISODate(c.slice(1))
+            } break
+            case ">": {
+                o.after = shortToISODate(c.slice(1))
+            }
+        }
+    })
+    return o
+}
+export function dateFilterMinimize(f?: DateFilterOptions): string | undefined {
+    /*
+     * before -> <
+     * after  -> >
      */
     if (f === undefined) return undefined
-    return f ? "t" : "f"
+    const conditions: string[] = []
+    if (f.before) {
+        conditions.push(`<${ISOToShortDate(f.before)}`)
+    }
+    if (f.after) {
+        conditions.push(`>${ISOToShortDate(f.after)}`)
+    }
+    return conditions.join(COND_SEPARATOR)
 }
+
+// PersistentObject
 
 export function persistentObjectFilterExpand(s?: string): PersistentObjectFilterOptions | undefined {
     /*
@@ -240,6 +305,8 @@ export function persistentObjectFilterMinimize(f?: PersistentObjectFilterOptions
     if (f.updatedAt) params.push(formatMinimizedParam("pu", dateFilterMinimize(f.updatedAt)))
     return params.filter(p => p).join(PARAM_SEPARATOR)
 }
+
+// Skill
 
 export function skillFilterExpand(s?: string): SkillFilterOptions | undefined {
     /*
@@ -278,12 +345,30 @@ export function skillFilterMinimize(f?: SkillFilterOptions): string | undefined 
      */
     if (f === undefined) return undefined
     const params: (string | undefined)[] = [persistentObjectFilterMinimize(f)]
-    if (f.name) params.push(formatMinimizedParam("n", stringFilterMinimize(f.name)))
-    if (f.plan) params.push(formatMinimizedParam("p", enumFilterMinimize(f.plan)))
-    if (f.rarity) params.push(formatMinimizedParam("r", enumFilterMinimize(f.rarity)))
-    if (f.category) params.push(formatMinimizedParam("a", enumFilterMinimize(f.category)))
-    if (f.source) params.push(formatMinimizedParam("s", enumFilterMinimize(f.source)))
-    if (f.unlockLevel) params.push(formatMinimizedParam("u", numberFilterMinimize(f.unlockLevel)))
-    if (f.isCustomizable) params.push(formatMinimizedParam("c", booleanFilterMinimize(f.isCustomizable)))
+    if (f.name !== undefined) params.push(formatMinimizedParam("n", stringFilterMinimize(f.name)))
+    if (f.plan !== undefined) params.push(formatMinimizedParam("p", enumFilterMinimize(f.plan)))
+    if (f.rarity !== undefined) params.push(formatMinimizedParam("r", enumFilterMinimize(f.rarity)))
+    if (f.category !== undefined) params.push(formatMinimizedParam("a", enumFilterMinimize(f.category)))
+    if (f.source !== undefined) params.push(formatMinimizedParam("s", enumFilterMinimize(f.source)))
+    if (f.unlockLevel !== undefined) params.push(formatMinimizedParam("u", numberFilterMinimize(f.unlockLevel)))
+    if (f.isCustomizable !== undefined) params.push(formatMinimizedParam("c", booleanFilterMinimize(f.isCustomizable)))
     return params.filter(p => p).join(PARAM_SEPARATOR)
+}
+export function skillConsolidateRarity(rarities: SkillRarity[]): SkillConsolidatedRarity[] {
+    const consolidated: SkillConsolidatedRarity[] = []
+    if (rarities.includes(SkillRarity.N)) consolidated.push(SkillConsolidatedRarity.N)
+    if (rarities.includes(SkillRarity.RLow) || rarities.includes(SkillRarity.RHigh)) consolidated.push(SkillConsolidatedRarity.R)
+    if (rarities.includes(SkillRarity.SRLow) || rarities.includes(SkillRarity.SRHigh)) consolidated.push(SkillConsolidatedRarity.SR)
+    if (rarities.includes(SkillRarity.SSR)) consolidated.push(SkillConsolidatedRarity.SSR)
+    if (rarities.includes(SkillRarity.Legend)) consolidated.push(SkillConsolidatedRarity.Legend)
+    return consolidated
+}
+export function skillDeconsolidateRarity(consolidated: SkillConsolidatedRarity[]): SkillRarity[] {
+    const rarities: SkillRarity[] = []
+    if (consolidated.includes(SkillConsolidatedRarity.N)) rarities.push(SkillRarity.N)
+    if (consolidated.includes(SkillConsolidatedRarity.R)) rarities.push(SkillRarity.RLow, SkillRarity.RHigh)
+    if (consolidated.includes(SkillConsolidatedRarity.SR)) rarities.push(SkillRarity.SRLow, SkillRarity.SRHigh)
+    if (consolidated.includes(SkillConsolidatedRarity.SSR)) rarities.push(SkillRarity.SSR)
+    if (consolidated.includes(SkillConsolidatedRarity.Legend)) rarities.push(SkillRarity.Legend)
+    return rarities
 }
