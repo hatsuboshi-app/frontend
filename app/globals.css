@@ -68,7 +68,9 @@
 
 @layer components {
     .card {
-        @apply w-full h-48 border border-border-dark flex flex-col
+        @apply w-full h-48
+            border border-border-dark
+            flex flex-col
             rounded-tr-2xl rounded-bl-2xl
             hover:border-border-hover-dark transition-colors
             py-sm-mobile-gap px-sm-mobile-gap

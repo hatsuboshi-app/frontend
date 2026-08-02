@@ -1,11 +1,14 @@
 import { PIdol } from "@hatsuboshi/types"
 import Link from "next/link"
 import { PATHS } from "@/lib/data/consts";
+import SuspenseCard from "@/components/data/SuspenseCard";
 
-export default async function PIdolCard({ pIdol }: { pIdol: PIdol }) {
+export default async function PIdolCard({ pIdol }: { pIdol?: PIdol }) {
+    const isSuspense = !pIdol
     const loc = "ja"
 
-    return (
+    return (!isSuspense ?
+        // hydrated
         <Link href={`/${PATHS.pIdol}/${pIdol.id.replace("idol-", "")}`} className={`card sm`}>
             <p className={"font-normal"} style={{ color: "#" + pIdol.character.color.text }}>
                 {pIdol.character.lastName[loc]}{pIdol.character.firstName[loc]}
@@ -24,5 +27,8 @@ export default async function PIdolCard({ pIdol }: { pIdol: PIdol }) {
                 </div>
             </div>
         </Link>
+        :
+        // suspense
+        <SuspenseCard/>
     )
 }

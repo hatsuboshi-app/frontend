@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { Skill } from "@hatsuboshi/types"
+import SuspenseCard from "@/components/data/SuspenseCard"
 
-export default async function SkillCard ({ skill }: { skill: Skill }) {
+export default async function SkillCard ({ skill }: { skill?: Skill }) {
+    const isSuspense = !skill
     const loc = "ja"
 
-    return (
+    return !isSuspense ?
+        // hydrated
         <Link href={`/skill/${skill.id.replace("skill-", "")}`} className={`card sm`}>
             <div className={"md"}>
                 <span>{skill.name[loc]}</span>
@@ -17,5 +20,7 @@ export default async function SkillCard ({ skill }: { skill: Skill }) {
             </div>
             {skill.unlockLevel > 0 && <p className={"text-secondary-dark"}>PLv. {skill.unlockLevel}</p>}
         </Link>
-    )
+        :
+        // suspense
+        <SuspenseCard/>
 }

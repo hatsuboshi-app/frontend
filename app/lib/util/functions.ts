@@ -32,6 +32,10 @@ export async function getGetURL<F extends {}, I>(path: string = "", { filter, so
     return url.href
 }
 
+export function getSuspensePaginatorMeta(pageSize: number) {
+    return { pageSize: pageSize, totalPages: 1, totalItems: 1, currentPage: 1 }
+}
+
 export function formatMinimizedParam(key: string, condition: string | undefined): string | undefined {
     if (condition === undefined) return undefined
     return `${key}${PARAM_DELIMITER}${condition}`
