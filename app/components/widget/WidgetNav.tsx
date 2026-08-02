@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react"
 import WidgetFrame from "@/components/widget/WidgetFrame"
 import { usePathname } from "next/navigation"
 import SkillFilterWidget from "@/components/widget/SkillFilterWidget"
+import { PATHS } from "@/lib/data/consts";
+import PIdolFilterWidget from "@/components/widget/PIdolFilterWidget";
 
-const searchElements: { [key: string]: React.ReactNode } = {
-    "/skill": <SkillFilterWidget/>,
-    "/pidol": "PIdols"
+const filterWidgets: { [key: string]: React.ReactNode } = {
+    [`/${PATHS.pIdol}`]: <PIdolFilterWidget/>,
+    [`/${PATHS.skill}`]: <SkillFilterWidget/>,
 }
 
 export default function WidgetNav() {
@@ -25,9 +27,9 @@ export default function WidgetNav() {
             tablet:gap-y-sm-tablet-gap
             laptop:gap-y-sm-laptop-gap
         `}>
-            {searchElements[clientPathname] &&
+            {filterWidgets[clientPathname] &&
             <WidgetFrame>
-                {searchElements[clientPathname]}
+                {filterWidgets[clientPathname]}
             </WidgetFrame>
             }
             <WidgetFrame>

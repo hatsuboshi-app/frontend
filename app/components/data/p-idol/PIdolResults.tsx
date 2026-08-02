@@ -1,8 +1,8 @@
-import SkillCard from "@/components/data/skill/SkillCard"
-import { ISkill, Paginator, Skill } from "@hatsuboshi/types"
+import { IPIdol, Paginator, PIdol } from "@hatsuboshi/types"
 import ResultsWrapper from "@/components/data/wrappers/ResultsWrapper"
+import PIdolCard from "@/components/data/p-idol/PIdolCard"
 
-export default async function SkillResults({ data }: { data: Paginator<Skill, ISkill> }) {
+export default async function PIdolResults({ data }: { data: Paginator<PIdol, IPIdol> }) {
     return (
         <ResultsWrapper paginatorMeta={data.meta} className={`
             w-full grid
@@ -10,7 +10,8 @@ export default async function SkillResults({ data }: { data: Paginator<Skill, IS
             tablet:gap-sm-tablet-gap tablet:grid-cols-2
             laptop:gap-sm-laptop-gap laptop-wide:grid-cols-3
         `}>
-            {data.data.map(s => <SkillCard key={s.id} skill={s}/>)}
+            {data.data.map(i => <PIdolCard key={i.id} pIdol={i}/>)}
         </ResultsWrapper>
     )
 }
+

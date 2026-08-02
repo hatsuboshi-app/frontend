@@ -15,6 +15,8 @@
 
 
     /* mobile */
+    --breakpoint-mobile-wide: 360px;
+
     --spacing-lg-mobile-gap: 10px;
     --spacing-sm-mobile-gap: 8px;
     --spacing-xs-mobile-gap: 6px;
@@ -22,13 +24,13 @@
 
     /* tablet */
     --breakpoint-tablet: 592px;             /* min sum (nav + main + 2x tablet gap) */
-    --breakpoint-tablet-wide: 832px;        /* max sum (nav + main + 2x tablet gap) */
+    --breakpoint-tablet-wide: 840px;        /* max sum (nav + main + 2x tablet gap) */
 
     --spacing-min-tablet-nav: 72px;
     --spacing-max-tablet-nav: 72px;
 
     --spacing-min-tablet-main: 480px;
-    --spacing-max-tablet-main: 720px;
+    --spacing-max-tablet-main: 728px;
 
     --spacing-lg-tablet-gap: 20px;
     --spacing-sm-tablet-gap: 14px;
@@ -62,6 +64,17 @@
 
     --spacing-min-sidenav: 296px;
     --spacing-max-sidenav: 420px;
+}
+
+@layer components {
+    .card {
+        @apply w-full h-48 border border-border-dark flex flex-col
+            rounded-tr-2xl rounded-bl-2xl
+            hover:border-border-hover-dark transition-colors
+            py-sm-mobile-gap px-sm-mobile-gap
+            tablet:py-sm-tablet-gap tablet:px-sm-tablet-gap
+            laptop:py-sm-laptop-gap laptop:px-sm-laptop-gap
+    }
 }
 
 .xxl {

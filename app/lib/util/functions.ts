@@ -3,11 +3,18 @@ import {
     DateFilterOptions, encodeSortOptions,
     EnumFilterOptions,
     LocaleStringFilterOptions,
-    NumberFilterOptions, SkillFilterOptions, SkillRarity
+    NumberFilterOptions, PIdolFilterOptions, SkillFilterOptions, SkillRarity
 } from "@hatsuboshi/types"
-import { API_URI, API_VERSION, COND_SEPARATOR, PARAM_DELIMITER, PARAM_SEPARATOR } from "@/lib/data/consts"
+import {
+    API_URI,
+    API_VERSION,
+    COND_SEPARATOR,
+    PARAM_DELIMITER,
+    PARAM_SEPARATOR, SEARCH_PARAM_FILTER, SEARCH_PARAM_PAGE, SEARCH_PARAM_PER_PAGE, SEARCH_PARAM_SORT
+} from "@/lib/data/consts"
 import { GetOptions, ReactSetter } from "@/lib/util/types"
-import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity";
+import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity"
+import { getUserPerPage } from "@/lib/api/cookies/perPage"
 
 export function getHeader(): Headers {
     const headers: Headers = new Headers()
@@ -16,12 +23,12 @@ export function getHeader(): Headers {
     return headers
 }
 
-export function getURL<F, I>(path: string = "", { filter, sort, p, pp }: GetOptions<F, I> = {}): string {
+export async function getGetURL<F extends {}, I>(path: string = "", { filter, sort, p, pp }: GetOptions<F, I> = {}): Promise<string> {
     const url = new URL(`${API_VERSION}/${path}`, API_URI)
-    if (filter !== undefined) url.searchParams.set("f", JSON.stringify(filter))
-    if (sort !== undefined) url.searchParams.set("s", encodeSortOptions(sort))
-    if (p !== undefined) url.searchParams.set("p", p.toString())
-    if (pp !== undefined) url.searchParams.set("pp", pp.toString())
+    if (filter !== undefined && Object.values(filter ?? {}).length > 0) url.searchParams.set(SEARCH_PARAM_FILTER, JSON.stringify(filter))
+    if (sort !== undefined) url.searchParams.set(SEARCH_PARAM_SORT, encodeSortOptions(sort))
+    if (p !== undefined) url.searchParams.set(SEARCH_PARAM_PAGE, p.toString())
+    url.searchParams.set(SEARCH_PARAM_PER_PAGE, String(pp ?? await getUserPerPage()))
     return url.href
 }
 
@@ -176,6 +183,14 @@ export function booleanFilterMinimize(f?: boolean): string | undefined {
     if (f === undefined) return undefined
     return f ? "t" : "f"
 }
+export function booleanDefaultValueFromFilter<T>(filter?: T, fields?: (keyof T)[]): Partial<Record<keyof T, boolean>> | undefined {
+    if (!filter || !fields) return undefined
+    return fields.reduce((a, v) => {
+        return filter[v] !== undefined
+            ? { ...a, [v]: filter[v] as boolean }
+            : a
+    }, {})
+}
 
 // Enum
 
@@ -303,6 +318,55 @@ export function persistentObjectFilterMinimize(f?: PersistentObjectFilterOptions
     const params: (string | undefined)[] = []
     if (f.createdAt) params.push(formatMinimizedParam("pc", dateFilterMinimize(f.createdAt)))
     if (f.updatedAt) params.push(formatMinimizedParam("pu", dateFilterMinimize(f.updatedAt)))
+    return params.filter(p => p).join(PARAM_SEPARATOR)
+}
+
+// PIdol
+
+export function pIdolFilterExpand(s?: string): PIdolFilterOptions | undefined {
+    /*
+     * name                  -> n
+     * character             -> c
+     * rarity                -> r
+     * plan                  -> p
+     * isWelfare             -> w
+     * hasPrimaStellaUpgrade -> s
+     * hasTrainingLv7        -> t
+     */
+    if (s === undefined) return undefined
+    const o: PIdolFilterOptions = { ...persistentObjectFilterExpand(s) }
+    const parameters = s.split(PARAM_SEPARATOR) ?? []
+    parameters.forEach(p => {
+        const [key, cond] = p.split(PARAM_DELIMITER)
+        if (key === "n") o.name = stringFilterExpand(cond)
+        else if (key === "c") o.character = enumFilterExpand(cond)
+        else if (key === "r") o.rarity = enumFilterExpand(cond)
+        else if (key === "p") o.plan = enumFilterExpand(cond)
+        else if (key === "w") o.isWelfare = booleanFilterExpand(cond)
+        else if (key === "s") o.hasPrimaStellaUpgrade = booleanFilterExpand(cond)
+        else if (key === "t") o.hasTrainingLv7 = booleanFilterExpand(cond)
+    })
+    return o
+}
+export function pIdolFilterMinimize(f?: PIdolFilterOptions): string | undefined {
+    /*
+     * name                  -> n
+     * character             -> c
+     * rarity                -> r
+     * plan                  -> p
+     * isWelfare             -> w
+     * hasPrimaStellaUpgrade -> s
+     * hasTrainingLv7        -> t
+     */
+    if (f === undefined) return undefined
+    const params: (string | undefined)[] = [persistentObjectFilterMinimize(f)]
+    if (f.name !== undefined) params.push(formatMinimizedParam("n", stringFilterMinimize(f.name)))
+    if (f.character !== undefined) params.push(formatMinimizedParam("c", enumFilterMinimize(f.character)))
+    if (f.rarity !== undefined) params.push(formatMinimizedParam("r", enumFilterMinimize(f.rarity)))
+    if (f.plan !== undefined) params.push(formatMinimizedParam("p", enumFilterMinimize(f.plan)))
+    if (f.isWelfare !== undefined) params.push(formatMinimizedParam("w", booleanFilterMinimize(f.isWelfare)))
+    if (f.hasPrimaStellaUpgrade !== undefined) params.push(formatMinimizedParam("s", booleanFilterMinimize(f.hasPrimaStellaUpgrade)))
+    if (f.hasTrainingLv7 !== undefined) params.push(formatMinimizedParam("t", booleanFilterMinimize(f.hasTrainingLv7)))
     return params.filter(p => p).join(PARAM_SEPARATOR)
 }
 

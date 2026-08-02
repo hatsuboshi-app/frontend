@@ -9,7 +9,7 @@ export default function CharacterFilterInput({defaultValue, onChange, title}: Fi
     const [characterEnumData, setCharacterEnumData] = useState<EnumData<string>[]>([])
 
     useEffect(() => {
-        getCharacters({ filter: { isPlayable: true } }).then(r => {
+        getCharacters({ filter: { isPlayable: true }, pp: 100 }).then(r => {
             if (r.success) setCharacters(r.data.data.sort((c1, c2) => c1.detail.height - c2.detail.height))
         })
     }, [])

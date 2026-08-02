@@ -1,13 +1,15 @@
 import { fail, ISkill, Paginator, Result, Skill, SkillFilterOptions, success } from "@hatsuboshi/types"
-import { getHeader, getURL } from "@/lib/util/functions"
+import { getGetURL, getHeader } from "@/lib/util/functions"
 import { GetOptions } from "@/lib/util/types"
 
-export async function getSkills({ filter, sort, p, pp }: GetOptions<SkillFilterOptions, ISkill> = {}): Promise<Result<Paginator<Skill, ISkill>>> {
+export async function getSkills(options: GetOptions<SkillFilterOptions, ISkill> = {}): Promise<Result<Paginator<Skill, ISkill>>> {
     try {
-        const r = await fetch(getURL("skills", { filter, sort, p, pp }), {
+        const r = await fetch(await getGetURL("skills", options), {
             method: "get",
             headers: getHeader()
         })
+        if (r.status >= 400)
+            return fail((await r.json()).message)
         return success(new Paginator<Skill, ISkill>(Skill, await r.json()))
     } catch (e: any) {
         return fail(e.message)
@@ -16,10 +18,12 @@ export async function getSkills({ filter, sort, p, pp }: GetOptions<SkillFilterO
 
 export async function getSkillById(id: string): Promise<Result<Skill>> {
     try {
-        const r = await fetch(getURL(`skills/${id}`), {
+        const r = await fetch(await getGetURL(`skills/${id}`), {
             method: "get",
             headers: getHeader()
         })
+        if (r.status >= 400)
+            return fail((await r.json()).message)
         return success(new Skill(await r.json()))
     } catch (e: any) {
         return fail(e.message)

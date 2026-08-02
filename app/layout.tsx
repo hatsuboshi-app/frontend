@@ -36,7 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </nav>
             <main className={`
                 flex flex-grow basis-0 h-full w-[calc(100%-var(--spacing-lg-mobile-gap)*2)] mx-lg-mobile-gap
-                tablet:mx-lg-tablet-gap   tablet-wide:mx-auto
+                tablet:mx-lg-tablet-gap
                 laptop:mx-lg-laptop-gap   laptop-wide:mx-auto
                 desktop:mx-lg-laptop-gap  desktop-wide:mx-auto
                 tablet:max-w-[calc(var(--breakpoint-tablet-wide)-var(--spacing-max-tablet-nav)-(var(--spacing-lg-tablet-gap)*2))]

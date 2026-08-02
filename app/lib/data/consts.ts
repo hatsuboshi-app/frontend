@@ -1,36 +1,40 @@
-import dotenv from 'dotenv'
+// api
 
-dotenv.config({ quiet: true })
+export const API_URI = process.env.API_URI ?? "http://localhost:3001"
+export const API_VERSION = process.env.API_VERSION ?? "v1"
 
-export let API_URI: string
-export let ENV: "local" | "development" | "production"
-export let PER_PAGE = 15
+// filter expand/minimize
 
-export let API_VERSION = "v1"
-export let COND_SEPARATOR = ","
-export let PARAM_DELIMITER = ":"
-export let PARAM_SEPARATOR = ";"
+export const COND_SEPARATOR = ","
+export const PARAM_DELIMITER = ":"
+export const PARAM_SEPARATOR = ";"
 
-export let SEARCH_PARAM_FILTER = "f"
-export let SEARCH_PARAM_SORT = "s"
-export let SEARCH_PARAM_PAGE = "p"
-export let SEARCH_PARAM_PER_PAGE = "pp"
+// timings
 
-export let MAX_P_LEVEL = 80
+export const INPUT_DEBOUNCE_TIME = 350
+export const FILTER_DEBOUNCE_TIME = 500
+export const URL_REPLACE_THROTTLE_TIME = 2000
 
-switch (process.env.NEXT_PUBLIC_ENV) {
-    case "production": {
-        API_URI = `https://api.hatsuboshi.app`
-        ENV = "production"
-        break
-    }
-    case "development": {
-        API_URI = `https://api-dev.hatsuboshi.app`
-        ENV = "development"
-        break
-    }
-    default: {
-        API_URI = `http://localhost:3001`
-        ENV = "local"
-    }
+// searchParam keys
+
+export const SEARCH_PARAM_PAGE = "p"
+export const SEARCH_PARAM_FILTER = "f"
+export const SEARCH_PARAM_SORT = "s"
+export const SEARCH_PARAM_PER_PAGE = "pp"
+
+// cookie keys
+
+export const COOKIE_PER_PAGE = "per-page"
+
+// others
+
+export const DEFAULT_PER_PAGE = 15
+export const MAX_P_LEVEL = 80
+export const PATHS = {
+    character: "character",
+    pDrink: "p-drink",
+    pIdol: "p-idol",
+    pItem: "p-item",
+    skill: "skill",
+    supportCard: "support-card"
 }

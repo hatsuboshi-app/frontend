@@ -3,7 +3,7 @@ import { SortOption } from "@hatsuboshi/types"
 
 export type ReactSetter<T> = React.Dispatch<React.SetStateAction<T>>
 
-export type GetOptions<F, I> = {
+export type GetOptions<F extends {}, I> = {
     filter?: F,
     sort?: SortOption<I>[],
     p?: number,
