@@ -68,7 +68,7 @@
 
 @layer components {
     .card {
-        @apply w-full h-48
+        @apply w-full h-48 overflow-hidden
             border border-border-dark
             flex flex-col
             rounded-tr-2xl rounded-bl-2xl

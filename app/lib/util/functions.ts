@@ -1,9 +1,11 @@
 import { PersistentObjectFilterOptions } from "@hatsuboshi/types/dist/class/abstract/PersistentObject"
 import {
+    CharacterFilterOptions,
     DateFilterOptions, decodeSortOptions, encodeSortOptions,
     EnumFilterOptions,
     LocaleStringFilterOptions,
-    NumberFilterOptions, PIdolFilterOptions, SkillFilterOptions, SkillRarity, SortOption
+    NumberFilterOptions, PDrinkFilterOptions, PIdolFilterOptions,
+    PItemFilterOptions, SkillFilterOptions, SkillRarity, SortOption
 } from "@hatsuboshi/types"
 import {
     API_URI,
@@ -355,11 +357,69 @@ export function persistentObjectFilterMinimize(f?: PersistentObjectFilterOptions
 
 // Character
 
-
+export function characterFilterExpand(s?: string): CharacterFilterOptions | undefined {
+    /*
+     * name       -> n
+     * isPlayable -> p
+     */
+    if (s === undefined) return undefined
+    const o: CharacterFilterOptions = { ...persistentObjectFilterExpand(s) }
+    const parameters = s.split(PARAM_SEPARATOR) ?? []
+    parameters.forEach(p => {
+        const [key, cond] = p.split(PARAM_DELIMITER)
+        if (key === "n") o.name = stringFilterExpand(cond)
+        else if (key === "p") o.isPlayable = booleanFilterExpand(cond)
+    })
+    return o
+}
+export function characterFilterMinimize(f?: CharacterFilterOptions): string | undefined {
+    /*
+     * name       -> n
+     * isPlayable -> p
+     */
+    if (f === undefined) return undefined
+    const params: (string | undefined)[] = [persistentObjectFilterMinimize(f)]
+    if (f.name !== undefined) params.push(formatMinimizedParam("n", stringFilterMinimize(f.name)))
+    if (f.isPlayable !== undefined) params.push(formatMinimizedParam("p", booleanFilterMinimize(f.isPlayable)))
+    return params.filter(p => p).join(PARAM_SEPARATOR)
+}
 
 // PDrink
 
-
+export function pDrinkFilterExpand(s?: string): PDrinkFilterOptions | undefined {
+    /*
+     * name        -> n
+     * plan        -> p
+     * rarity      -> r
+     * unlockLevel -> u
+     */
+    if (s === undefined) return undefined
+    const o: PDrinkFilterOptions = { ...persistentObjectFilterExpand(s) }
+    const parameters = s.split(PARAM_SEPARATOR) ?? []
+    parameters.forEach(p => {
+        const [key, cond] = p.split(PARAM_DELIMITER)
+        if (key === "n") o.name = stringFilterExpand(cond)
+        else if (key === "p") o.plan = enumFilterExpand(cond)
+        else if (key === "r") o.rarity = enumFilterExpand(cond)
+        else if (key === "u") o.unlockLevel = numberFilterExpand(cond)
+    })
+    return o
+}
+export function pDrinkFilterMinimize(f?: PDrinkFilterOptions): string | undefined {
+    /*
+     * name        -> n
+     * plan        -> p
+     * rarity      -> r
+     * unlockLevel -> u
+     */
+    if (f === undefined) return undefined
+    const params: (string | undefined)[] = [persistentObjectFilterMinimize(f)]
+    if (f.name !== undefined) params.push(formatMinimizedParam("n", stringFilterMinimize(f.name)))
+    if (f.plan !== undefined) params.push(formatMinimizedParam("p", enumFilterMinimize(f.plan)))
+    if (f.rarity !== undefined) params.push(formatMinimizedParam("r", enumFilterMinimize(f.rarity)))
+    if (f.unlockLevel !== undefined) params.push(formatMinimizedParam("u", numberFilterMinimize(f.unlockLevel)))
+    return params.filter(p => p).join(PARAM_SEPARATOR)
+}
 
 // PIdol
 
@@ -412,7 +472,44 @@ export function pIdolFilterMinimize(f?: PIdolFilterOptions): string | undefined 
 
 // PItem
 
-
+export function pItemFilterExpand(s?: string): PItemFilterOptions | undefined {
+    /*
+     * name        -> n
+     * plan        -> p
+     * rarity      -> r
+     * source      -> s
+     * unlockLevel -> u
+     */
+    if (s === undefined) return undefined
+    const o: PItemFilterOptions = { ...persistentObjectFilterExpand(s) }
+    const parameters = s.split(PARAM_SEPARATOR) ?? []
+    parameters.forEach(p => {
+        const [key, cond] = p.split(PARAM_DELIMITER)
+        if (key === "n") o.name = stringFilterExpand(cond)
+        else if (key === "p") o.plan = enumFilterExpand(cond)
+        else if (key === "r") o.rarity = enumFilterExpand(cond)
+        else if (key === "s") o.source = enumFilterExpand(cond)
+        else if (key === "u") o.unlockLevel = numberFilterExpand(cond)
+    })
+    return o
+}
+export function pItemFilterMinimize(f?: PItemFilterOptions): string | undefined {
+    /*
+     * name        -> n
+     * plan        -> p
+     * rarity      -> r
+     * source      -> s
+     * unlockLevel -> u
+     */
+    if (f === undefined) return undefined
+    const params: (string | undefined)[] = [persistentObjectFilterMinimize(f)]
+    if (f.name !== undefined) params.push(formatMinimizedParam("n", stringFilterMinimize(f.name)))
+    if (f.plan !== undefined) params.push(formatMinimizedParam("p", enumFilterMinimize(f.plan)))
+    if (f.rarity !== undefined) params.push(formatMinimizedParam("r", enumFilterMinimize(f.rarity)))
+    if (f.source !== undefined) params.push(formatMinimizedParam("s", enumFilterMinimize(f.source)))
+    if (f.unlockLevel !== undefined) params.push(formatMinimizedParam("u", numberFilterMinimize(f.unlockLevel)))
+    return params.filter(p => p).join(PARAM_SEPARATOR)
+}
 
 // Skill
 
