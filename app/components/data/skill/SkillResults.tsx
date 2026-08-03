@@ -17,7 +17,7 @@ export default async function SkillResults({ data }: { data?: Paginator<Skill, I
         `}>
             {!isSuspense ?
                 // hydrated
-                data.data.map(s => <SkillCard key={s.id} skill={s}/>)
+                data.data.map(s => <SkillCard key={s.id} skillJson={s.toJSON()}/>)
                 :
                 // suspense
                 new Array(pageSize).fill(null).map((_, i) => <SkillCard key={i}/>)

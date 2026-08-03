@@ -1,14 +1,18 @@
-import Link from "next/link"
-import { Skill } from "@hatsuboshi/types"
-import SuspenseCard from "@/components/data/SuspenseCard"
+"use client"
 
-export default async function SkillCard ({ skill }: { skill?: Skill }) {
+import Link from "next/link"
+import { ISkill, Skill } from "@hatsuboshi/types"
+import SuspenseCard from "@/components/data/SuspenseCard"
+import { PATHS } from "@/lib/data/consts";
+
+export default function SkillCard ({ skillJson }: { skillJson?: ISkill }) {
+    const skill = skillJson ? new Skill(skillJson) : undefined
     const isSuspense = !skill
     const loc = "ja"
 
-    return !isSuspense ?
+    return (!isSuspense ?
         // hydrated
-        <Link href={`/skill/${skill.id.replace("skill-", "")}`} className={`card sm`}>
+        <Link href={`/${PATHS.skill}/${skill.id.replace("skill-", "")}`} className={`card sm`}>
             <div className={"md"}>
                 <span>{skill.name[loc]}</span>
                 <span className={"ml-3 text-accent font-medium"}>{skill.consolidatedRarity.toUpperCase()}</span>
@@ -23,4 +27,5 @@ export default async function SkillCard ({ skill }: { skill?: Skill }) {
         :
         // suspense
         <SuspenseCard/>
+    )
 }

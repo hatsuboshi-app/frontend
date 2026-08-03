@@ -1,9 +1,12 @@
-import { PIdol } from "@hatsuboshi/types"
-import Link from "next/link"
-import { PATHS } from "@/lib/data/consts";
-import SuspenseCard from "@/components/data/SuspenseCard";
+"use client"
 
-export default async function PIdolCard({ pIdol }: { pIdol?: PIdol }) {
+import { IPIdol, PIdol } from "@hatsuboshi/types"
+import Link from "next/link"
+import { PATHS } from "@/lib/data/consts"
+import SuspenseCard from "@/components/data/SuspenseCard"
+
+export default function PIdolCard({ pIdolJson }: { pIdolJson?: IPIdol }) {
+    const pIdol = pIdolJson ? new PIdol(pIdolJson) : undefined
     const isSuspense = !pIdol
     const loc = "ja"
 

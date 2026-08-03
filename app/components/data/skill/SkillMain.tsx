@@ -1,9 +1,14 @@
-import { Skill } from "@hatsuboshi/types"
+"use client"
 
-export default async function SkillMain({ skill }: { skill: Skill }) {
+import { ISkill, Skill } from "@hatsuboshi/types"
+
+export default function SkillMain({ skillJson }: { skillJson?: ISkill }) {
+    const skill = skillJson ? new Skill(skillJson) : undefined
+    const isSuspense = !skill
     const loc = "ja"
 
-    return (
+    return (!isSuspense ?
+        // hydrated
         <div className={"w-full flex flex-row gap-x-lg-laptop-gap"}>
             <div className={"w-24 h-24 bg-background-inset-dark"}/>
             <div className={"flex flex-grow flex-col gap-y-sm-laptop-gap"}>
@@ -15,5 +20,8 @@ export default async function SkillMain({ skill }: { skill: Skill }) {
                 </div>
             </div>
         </div>
+        :
+        // suspense
+        <p>Loading...</p>
     )
 }

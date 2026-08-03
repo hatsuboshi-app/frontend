@@ -5,5 +5,5 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     const res = await getSkillById(`skill-${(await params).id}`)
     if (!res.success) return null
 
-    return <SkillMain skill={res.data}/>
+    return <SkillMain skillJson={res.data.toJSON()}/>
 }

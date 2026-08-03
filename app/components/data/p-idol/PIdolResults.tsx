@@ -17,7 +17,7 @@ export default async function PIdolResults({ data }: { data?: Paginator<PIdol, I
         `}>
             {!isSuspense ?
                 // hydrated
-                data.data.map(i => <PIdolCard key={i.id} pIdol={i}/>)
+                data.data.map(i => <PIdolCard key={i.id} pIdolJson={i.toJSON()}/>)
                 :
                 // suspense
                 new Array(pageSize).fill(null).map((_, i) => <PIdolCard key={i}/>)

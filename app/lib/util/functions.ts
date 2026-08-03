@@ -1,9 +1,9 @@
 import { PersistentObjectFilterOptions } from "@hatsuboshi/types/dist/class/abstract/PersistentObject"
 import {
-    DateFilterOptions, encodeSortOptions,
+    DateFilterOptions, decodeSortOptions, encodeSortOptions,
     EnumFilterOptions,
     LocaleStringFilterOptions,
-    NumberFilterOptions, PIdolFilterOptions, SkillFilterOptions, SkillRarity
+    NumberFilterOptions, PIdolFilterOptions, SkillFilterOptions, SkillRarity, SortOption
 } from "@hatsuboshi/types"
 import {
     API_URI,
@@ -15,6 +15,8 @@ import {
 import { GetOptions, ReactSetter } from "@/lib/util/types"
 import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
+import { SearchParams } from "next/dist/server/request/search-params";
+import { decompressFromEncodedURIComponent } from "lz-string";
 
 export async function getHeader(): Promise<Headers> {
     const headers: Headers = new Headers()
@@ -34,6 +36,32 @@ export async function getGetURL<F extends {}, I>(path: string = "", { filter, so
 
 export function getSuspensePaginatorMeta(pageSize: number) {
     return { pageSize: pageSize, totalPages: 1, totalItems: 1, currentPage: 1 }
+}
+
+export function getPFSFromSearchParams<F extends {}, I>(sp: SearchParams, filterExpand: (s?: string) => F | undefined): [ number | undefined, F | undefined, SortOption<I>[] | undefined] {
+    const [p, f, s] = [sp[SEARCH_PARAM_PAGE], sp[SEARCH_PARAM_FILTER], sp[SEARCH_PARAM_SORT]]
+
+    // parse page
+    let page: number | undefined
+    try {
+        page = p
+            ? typeof p === "string" ? Number(p) : Number(p[0])
+            : undefined
+    } catch (_) {
+        page = undefined
+    }
+
+    // parse filter
+    const filter = f
+        ? filterExpand(decompressFromEncodedURIComponent(typeof f === "string" ? f : f[0]))
+        : undefined
+
+    // parse sort
+    const sort = s
+        ? decodeSortOptions<I>(decompressFromEncodedURIComponent(typeof s === "string" ? s : s[0]))
+        : undefined
+
+    return [page, filter, sort]
 }
 
 export function formatMinimizedParam(key: string, condition: string | undefined): string | undefined {

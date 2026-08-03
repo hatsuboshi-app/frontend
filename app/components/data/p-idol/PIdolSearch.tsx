@@ -1,16 +1,12 @@
 import { SearchParams } from "next/dist/server/request/search-params"
-import { SEARCH_PARAM_FILTER, SEARCH_PARAM_PAGE, SEARCH_PARAM_SORT } from "@/lib/data/consts"
-import { pIdolFilterExpand } from "@/lib/util/functions"
-import { decompressFromEncodedURIComponent } from "lz-string"
+import { getPFSFromSearchParams, pIdolFilterExpand } from "@/lib/util/functions"
 import { getPIdols } from "@/lib/api/data/p-idol"
 import PIdolResults from "@/components/data/p-idol/PIdolResults"
+import { IPIdol, PIdolFilterOptions } from "@hatsuboshi/types"
 
 export default async function PIdolSearch({ searchParams }: { searchParams: SearchParams }) {
-    const [p, f, s] = [searchParams[SEARCH_PARAM_PAGE], searchParams[SEARCH_PARAM_FILTER], searchParams[SEARCH_PARAM_SORT]]
-
-    const filter = typeof f === "string" ? pIdolFilterExpand(decompressFromEncodedURIComponent(f)) ?? {} : {}
-
-    const res = await getPIdols({ filter })
+    const [p, filter, sort] = getPFSFromSearchParams<PIdolFilterOptions, IPIdol>(searchParams, pIdolFilterExpand)
+    const res = await getPIdols({ p, filter, sort })
     if (!res.success) return null
 
     return <PIdolResults data={res.data}/>
