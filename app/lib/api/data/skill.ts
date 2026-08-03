@@ -6,7 +6,7 @@ export async function getSkills(options: GetOptions<SkillFilterOptions, ISkill> 
     try {
         const r = await fetch(await getGetURL("skills", options), {
             method: "get",
-            headers: getHeader()
+            headers: await getHeader()
         })
         if (r.status >= 400)
             return fail((await r.json()).message)
@@ -20,7 +20,7 @@ export async function getSkillById(id: string): Promise<Result<Skill>> {
     try {
         const r = await fetch(await getGetURL(`skills/${id}`), {
             method: "get",
-            headers: getHeader()
+            headers: await getHeader()
         })
         if (r.status >= 400)
             return fail((await r.json()).message)

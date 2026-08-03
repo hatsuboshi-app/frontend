@@ -16,7 +16,7 @@ import { GetOptions, ReactSetter } from "@/lib/util/types"
 import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
 
-export function getHeader(): Headers {
+export async function getHeader(): Promise<Headers> {
     const headers: Headers = new Headers()
     headers.append("Content-Type", "application/json")
     headers.append("Accept", "application/json")

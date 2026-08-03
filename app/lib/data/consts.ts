@@ -38,3 +38,13 @@ export const PATHS = {
     skill: "skill",
     supportCard: "support-card"
 }
+export const API_PATHS = {
+    effect: "effects",
+    terminology: "terminologies",
+    character: "characters",
+    pDrink: "p-drinks",
+    pIdol: "p-idols",
+    pItem: "p-items",
+    skill: "skills",
+    supportCard: "support-cards"
+}
