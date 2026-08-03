@@ -1,8 +1,8 @@
 "use client"
 
 import { Character, ICharacter } from "@hatsuboshi/types"
-import { DEFAULT_LOCALE } from "@/lib/util/consts";
-import SuspenseCard from "@/components/data/SuspenseCard";
+import { DEFAULT_LOCALE } from "@/lib/util/consts"
+import SuspenseCard from "@/components/data/SuspenseCard"
 
 export default function CharacterCard({ characterJson }: { characterJson?: ICharacter }) {
     const character = characterJson ? new Character(characterJson) : undefined

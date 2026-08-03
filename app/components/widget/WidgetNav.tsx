@@ -6,9 +6,15 @@ import { usePathname } from "next/navigation"
 import SkillFilterWidget from "@/components/widget/SkillFilterWidget"
 import { PATHS } from "@/lib/util/consts"
 import PIdolFilterWidget from "@/components/widget/PIdolFilterWidget"
+import CharacterFilterWidget from "@/components/widget/CharacterFilterWidget";
+import PDrinkFilterWidget from "@/components/widget/PDrinkFilterWidget";
+import PItemFilterWidget from "@/components/widget/PItemFilterWidget";
 
 const filterWidgets: { [key: string]: React.ReactNode } = {
+    [`/${PATHS.character}`]: <CharacterFilterWidget/>,
+    [`/${PATHS.pDrink}`]: <PDrinkFilterWidget/>,
     [`/${PATHS.pIdol}`]: <PIdolFilterWidget/>,
+    [`/${PATHS.pItem}`]: <PItemFilterWidget/>,
     [`/${PATHS.skill}`]: <SkillFilterWidget/>,
 }
 

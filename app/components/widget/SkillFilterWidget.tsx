@@ -54,7 +54,7 @@ export default function SkillFilterWidget() {
                 onChange={v => handleEnumFilterInput(setFilter, "category", v)}
             />
             <EnumFilterInput
-                title={"Card Source"}
+                title={"Skill Source"}
                 data={skillSources}
                 defaultValue={enumDefaultValueFromFilter(filter.source)}
                 onChange={v => handleEnumFilterInput(setFilter, "source", v)}

@@ -1,54 +1,51 @@
 import useFilter from "@/lib/hooks/useFilter"
 import {
-    booleanDefaultValueFromFilter,
     enumDefaultValueFromFilter,
-    handleBooleanFilterInput,
     handleEnumFilterInput,
     handleStringFilterInput,
-    pIdolFilterExpand,
-    pIdolFilterMinimize,
+    pItemFilterExpand,
+    pItemFilterMinimize,
     stringDefaultValueFromFilter
 } from "@/lib/util/functions"
 import FilterWidgetWrapper from "@/components/widget/wrappers/FilterWidgetWrapper"
 import StringFilterInput from "@/components/widget/primitives/StringFilterInput"
 import EnumFilterInput from "@/components/widget/primitives/EnumFilterInput"
-import { pIdolFlagKeys, pIdolFlags, pIdolPlans, pIdolRarities } from "@/lib/data/p-idol"
-import CharacterFilterInput from "@/components/widget/primitives/CharacterFilterInput"
-import BooleanFilterInput from "@/components/widget/primitives/BooleanFilterInput"
+import { pItemPlans, pItemRarities, pItemSources } from "@/lib/data/p-item"
 
-export default function PIdolFilterWidget() {
-    const [filter, setFilter] = useFilter({ expand: pIdolFilterExpand, minimize: pIdolFilterMinimize })
+export default function PItemFilterWidget() {
+    const [filter, setFilter] = useFilter({ expand: pItemFilterExpand, minimize: pItemFilterMinimize })
 
     return (
         <FilterWidgetWrapper>
-            <p className={"lg"}>Search Produce Idols</p>
+            <p className={"lg"}>Search Produce Items</p>
             <StringFilterInput
                 title={"Name"}
                 defaultValue={stringDefaultValueFromFilter(filter.name)}
                 onChange={v => handleStringFilterInput(setFilter, "name", v)}
             />
             <EnumFilterInput
-                data={pIdolRarities}
                 title={"Rarity"}
+                data={pItemRarities}
                 defaultValue={enumDefaultValueFromFilter(filter.rarity)}
                 onChange={v => handleEnumFilterInput(setFilter, "rarity", v)}
             />
+            {/*<NumberFilterInput*/}
+            {/*    title={"Unlocking Level"}*/}
+            {/*    defaultValue={numberDefaultValueFromFilter(filter.unlockLevel)}*/}
+            {/*    onChange={v => handleNumberFilterInput(setFilter, "unlockLevel", v)}*/}
+            {/*/>*/}
+            {/*seems useless atm?*/}
             <EnumFilterInput
-                data={pIdolPlans}
                 title={"Plan"}
+                data={pItemPlans}
                 defaultValue={enumDefaultValueFromFilter(filter.plan)}
                 onChange={v => handleEnumFilterInput(setFilter, "plan", v)}
             />
-            <CharacterFilterInput
-                title={"Character"}
-                defaultValue={enumDefaultValueFromFilter(filter.character)}
-                onChange={v => handleEnumFilterInput(setFilter, "character", v)}
-            />
-            <BooleanFilterInput
-                data={pIdolFlags}
-                title={"Others"}
-                defaultValue={booleanDefaultValueFromFilter(filter, pIdolFlagKeys)}
-                onChange={v => handleBooleanFilterInput(setFilter, pIdolFlagKeys, v)}
+            <EnumFilterInput
+                title={"Item Source"}
+                data={pItemSources}
+                defaultValue={enumDefaultValueFromFilter(filter.source)}
+                onChange={v => handleEnumFilterInput(setFilter, "source", v)}
             />
         </FilterWidgetWrapper>
     )
