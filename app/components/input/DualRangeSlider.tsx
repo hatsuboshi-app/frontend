@@ -134,5 +134,5 @@ export default function DualRangeSlider({min = 0, max = 80, step = 1, defaultVal
                 <span>{formatLabel(lte)}</span>
             </div>
         </div>
-    );
+    )
 }

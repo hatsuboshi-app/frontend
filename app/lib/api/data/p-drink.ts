@@ -1,7 +1,7 @@
 import { GetOptions } from "@/lib/util/types"
 import { fail, IPDrink, Paginator, PDrink, PDrinkFilterOptions, Result, success } from "@hatsuboshi/types"
 import { getGetURL, getHeader } from "@/lib/util/functions"
-import { API_PATHS } from "@/lib/data/consts"
+import { API_PATHS } from "@/lib/util/consts"
 
 export async function getPDrinks(options: GetOptions<PDrinkFilterOptions, IPDrink> = {}): Promise<Result<Paginator<PDrink, IPDrink>>> {
     try {

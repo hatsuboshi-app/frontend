@@ -2,7 +2,7 @@ import { EnumData, FilterInputProps } from "@/lib/util/types"
 import { useEffect, useState } from "react"
 import { getCharacters } from "@/lib/api/data/character"
 import EnumFilterInput from "@/components/widget/primitives/EnumFilterInput"
-import { Character } from "@hatsuboshi/types";
+import { Character } from "@hatsuboshi/types"
 
 export default function CharacterFilterInput({defaultValue, onChange, title}: FilterInputProps<string[]>) {
     const [characters, setCharacters] = useState<Character[]>([])

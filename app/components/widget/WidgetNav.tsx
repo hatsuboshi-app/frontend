@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react"
 import WidgetFrame from "@/components/widget/WidgetFrame"
 import { usePathname } from "next/navigation"
 import SkillFilterWidget from "@/components/widget/SkillFilterWidget"
-import { PATHS } from "@/lib/data/consts";
-import PIdolFilterWidget from "@/components/widget/PIdolFilterWidget";
+import { PATHS } from "@/lib/util/consts"
+import PIdolFilterWidget from "@/components/widget/PIdolFilterWidget"
 
 const filterWidgets: { [key: string]: React.ReactNode } = {
     [`/${PATHS.pIdol}`]: <PIdolFilterWidget/>,

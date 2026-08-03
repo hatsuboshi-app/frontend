@@ -1,7 +1,7 @@
 import { GetOptions } from "@/lib/util/types"
 import { fail, IPItem, Paginator, PItem, PItemFilterOptions, Result, success } from "@hatsuboshi/types"
 import { getGetURL, getHeader } from "@/lib/util/functions"
-import { API_PATHS } from "@/lib/data/consts"
+import { API_PATHS } from "@/lib/util/consts"
 
 export async function getPItems(options: GetOptions<PItemFilterOptions, IPItem> = {}): Promise<Result<Paginator<PItem, IPItem>>> {
     try {

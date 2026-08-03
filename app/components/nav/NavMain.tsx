@@ -1,6 +1,6 @@
 import React from "react"
-import Link from "next/link";
-import { PATHS } from "@/lib/data/consts";
+import Link from "next/link"
+import { PATHS } from "@/lib/util/consts"
 
 export default function NavMain() {
     return (

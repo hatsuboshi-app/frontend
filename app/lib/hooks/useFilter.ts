@@ -1,6 +1,6 @@
 import { ReactSetter } from "@/lib/util/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { FILTER_DEBOUNCE_TIME, SEARCH_PARAM_FILTER, URL_REPLACE_THROTTLE_TIME } from "@/lib/data/consts"
+import { FILTER_DEBOUNCE_TIME, SEARCH_PARAM_FILTER, URL_REPLACE_THROTTLE_TIME } from "@/lib/util/consts"
 import { useEffect, useState } from "react"
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string"
 import useDebouncer from "@/lib/hooks/useDebouncer"

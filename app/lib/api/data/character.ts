@@ -1,7 +1,7 @@
 import { GetOptions } from "@/lib/util/types"
 import { Character, CharacterFilterOptions, fail, ICharacter, Paginator, Result, success } from "@hatsuboshi/types"
 import { getGetURL, getHeader } from "@/lib/util/functions"
-import { API_PATHS } from "@/lib/data/consts"
+import { API_PATHS } from "@/lib/util/consts"
 
 export async function getCharacters(options: GetOptions<CharacterFilterOptions, ICharacter> = {}): Promise<Result<Paginator<Character, ICharacter>>> {
     try {

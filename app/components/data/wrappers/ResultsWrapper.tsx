@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react"
-import PaginatorBar from "@/components/data/paginator/PaginatorBar"
+import PaginatorBar from "@/components/data/PaginatorBar"
 import { Paginator } from "@hatsuboshi/types"
 
 type ResultsWrapperProps = {
@@ -7,7 +7,11 @@ type ResultsWrapperProps = {
     className?: string
 }
 
-export default async function ResultsWrapper({ children, paginatorMeta, className }: PropsWithChildren<ResultsWrapperProps>) {
+export default async function ResultsWrapper({
+                                                 children,
+                                                 paginatorMeta,
+                                                 className
+                                             }: PropsWithChildren<ResultsWrapperProps>) {
     return (
         <div className={"flex flex-col w-full"}>
             <PaginatorBar

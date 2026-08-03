@@ -66,5 +66,5 @@ export default function SkillFilterWidget() {
                 onChange={v => handleBooleanFilterInput(setFilter, skillFlagKeys, v)}
             />
         </FilterWidgetWrapper>
-    );
+    )
 }

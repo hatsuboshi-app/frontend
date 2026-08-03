@@ -1,7 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { COOKIE_PER_PAGE, DEFAULT_PER_PAGE } from "@/lib/data/consts"
+import { COOKIE_PER_PAGE, DEFAULT_PER_PAGE } from "@/lib/util/consts"
 
 export async function getUserPerPage(): Promise<number> {
     return Number((await cookies()).get(COOKIE_PER_PAGE)?.value || DEFAULT_PER_PAGE)

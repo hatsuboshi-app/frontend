@@ -28,6 +28,7 @@ export const COOKIE_PER_PAGE = "per-page"
 
 // others
 
+export const DEFAULT_LOCALE = "ja"
 export const DEFAULT_PER_PAGE = 15
 export const MAX_P_LEVEL = 80
 export const PATHS = {

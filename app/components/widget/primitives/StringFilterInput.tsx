@@ -1,7 +1,7 @@
 import { FilterInputProps } from "@/lib/util/types"
 import React, { useEffect, useState } from "react"
 import useDebouncer from "@/lib/hooks/useDebouncer"
-import { INPUT_DEBOUNCE_TIME } from "@/lib/data/consts"
+import { INPUT_DEBOUNCE_TIME } from "@/lib/util/consts"
 
 export default function StringFilterInput({ defaultValue, onChange, title }: FilterInputProps<string>) {
     const [value, setValue] = useState(defaultValue ?? "")

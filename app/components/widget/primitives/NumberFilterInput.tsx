@@ -1,7 +1,7 @@
 import { FilterInputProps } from "@/lib/util/types"
 import React, { useCallback, useEffect, useState } from "react"
 import DualRangeSlider from "@/components/input/DualRangeSlider"
-import { INPUT_DEBOUNCE_TIME, MAX_P_LEVEL } from "@/lib/data/consts"
+import { INPUT_DEBOUNCE_TIME, MAX_P_LEVEL } from "@/lib/util/consts"
 import useDebouncer from "@/lib/hooks/useDebouncer"
 
 export default function NumberFilterInput({ defaultValue, onChange, title }: FilterInputProps<{ gte?: number, lte?: number }>) {

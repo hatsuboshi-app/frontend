@@ -1,7 +1,7 @@
 import { GetOptions } from "@/lib/util/types"
 import { fail, IPIdol, Paginator, PIdol, PIdolFilterOptions, Result, success } from "@hatsuboshi/types"
 import { getGetURL, getHeader } from "@/lib/util/functions"
-import { API_PATHS } from "@/lib/data/consts"
+import { API_PATHS } from "@/lib/util/consts"
 
 export async function getPIdols(options: GetOptions<PIdolFilterOptions, IPIdol> = {}): Promise<Result<Paginator<PIdol, IPIdol>>> {
     try {
