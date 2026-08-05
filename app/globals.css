@@ -3,7 +3,10 @@
 @theme {
     /* colors */
     --color-background-dark: #25262b;
+    --color-background-inset-dark: #212123;
+    --color-background-layer-dark: #2f2f32;
     --color-border-dark: rgba(75, 85, 99, 0.5);
+    --color-border-hover-dark: rgb(111 124 145 / 0.5);
     --color-primary-dark: rgba(255, 255, 255, 0.87);
     --color-secondary-dark: rgb(117, 121, 126);
 
@@ -12,70 +15,115 @@
 
 
     /* mobile */
+    --breakpoint-mobile-wide: 360px;
+
     --spacing-lg-mobile-gap: 10px;
-    --spacing-sm-mobile-gap: 6px;
+    --spacing-sm-mobile-gap: 8px;
+    --spacing-xs-mobile-gap: 6px;
 
 
     /* tablet */
-    --breakpoint-tablet: 592px;             /* min sum (2x tablet gap) */
-    --breakpoint-tablet-wide: 832px;        /* max sum (2x tablet gap) */
-
-    --spacing-lg-tablet-gap: 20px;
-    --spacing-sm-tablet-gap: 12px;
+    --breakpoint-tablet: 592px;             /* min sum (nav + main + 2x tablet gap) */
+    --breakpoint-tablet-wide: 840px;        /* max sum (nav + main + 2x tablet gap) */
 
     --spacing-min-tablet-nav: 72px;
-    --spacing-min-tablet-main: 480px;
-
     --spacing-max-tablet-nav: 72px;
-    --spacing-max-tablet-main: 720px;
+
+    --spacing-min-tablet-main: 480px;
+    --spacing-max-tablet-main: 728px;
+
+    --spacing-lg-tablet-gap: 20px;
+    --spacing-sm-tablet-gap: 14px;
+    --spacing-xs-tablet-gap: 10px;
 
 
     /* laptop */
-    --breakpoint-laptop: 840px;             /* min sum (2x laptop gap) */
-    --breakpoint-laptop-wide: 1112px;       /* max sum (2x laptop gap) */
+    --breakpoint-laptop: 840px;             /* min sum (nav + main + 2x laptop gap) */
+    --breakpoint-laptop-wide: 1112px;       /* max sum (nav + main + 2x laptop gap) */
+
+    --spacing-min-laptop-nav: 180px;
+    --spacing-max-laptop-nav: 272px;
+
+    --spacing-min-laptop-main: 600px;
+    --spacing-max-laptop-main: 780px;
 
     --spacing-lg-laptop-gap: 30px;
     --spacing-sm-laptop-gap: 18px;
-
-    --spacing-min-laptop-nav: 180px;
-    --spacing-min-laptop-main: 600px;
-
-    --spacing-max-laptop-nav: 272px;
-    --spacing-max-laptop-main: 780px;
+    --spacing-xs-laptop-gap: 14px;
 
 
     /* desktop */
-    --breakpoint-desktop: 1338px;           /* min sum (3x laptop gap) */
-    --breakpoint-desktop-wide: 1810px;      /* max sum (3x laptop gap) */
+    --breakpoint-desktop: 1338px;           /* min sum (nav + main + 3x laptop gap) */
+    --breakpoint-desktop-wide: 1810px;      /* max sum (nav + main + 3x laptop gap) */
 
     --spacing-min-desktop-nav: 272px;
-    --spacing-min-desktop-main: 680px;
-
     --spacing-max-desktop-nav: 340px;
+
+    --spacing-min-desktop-main: 680px;
     --spacing-max-desktop-main: 960px;
 
-
-    /* sidenav (desktop only) */
     --spacing-min-sidenav: 296px;
     --spacing-max-sidenav: 420px;
 }
 
-.xl {
+@layer components {
+    .card {
+        @apply w-full h-48 overflow-hidden
+            border border-border-dark
+            flex flex-col
+            rounded-tr-2xl rounded-bl-2xl
+            hover:border-border-hover-dark transition-colors
+            py-sm-mobile-gap px-sm-mobile-gap
+            tablet:py-sm-tablet-gap tablet:px-sm-tablet-gap
+            laptop:py-sm-laptop-gap laptop:px-sm-laptop-gap
+    }
+}
+
+.xxl {
     @apply text-[36px] tablet:text-[40px] laptop:text-[48px]
 }
 
-.lg {
+.xl {
     @apply text-[20px] tablet:text-[22.5px] laptop:text-[27px]
 }
 
+.lg {
+    @apply text-[16px] laptop:text-[19px]
+}
+
 .md {
-    @apply text-[12px] tablet:text-[13.5px] laptop:text-[16px]
+    @apply text-[14.5px] laptop:text-[16px]
 }
 
 .sm {
-    @apply text-[9px] tablet:text-[10px] laptop:text-[12px]
+    @apply text-[11.5px] laptop:text-[12px]
 }
 
 .xs {
-    @apply text-[8.5px] tablet:text-[9px] laptop:text-[10px]
+    @apply text-[9px] laptop:text-[10px]
+}
+
+.form-label {
+    @apply uppercase font-normal tracking-wider text-secondary-dark mb-1
+}
+
+.p-text-element {
+    @apply px-3 pt-[5px] pb-1
+}
+
+.rounded-hatsuboshi {
+    @apply rounded-tr-lg rounded-bl-lg
+}
+
+.rounded-hatsuboshi-lg {
+    @apply rounded-tr-2xl rounded-bl-2xl
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
 }
