@@ -4,6 +4,8 @@ import "@/globals.css"
 import { IBM_Plex_Sans_JP } from 'next/font/google'
 import Nav from "@/components/nav/Nav"
 import WidgetNav from "@/components/widget/WidgetNav"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const IBMPlexSansJP = IBM_Plex_Sans_JP({
     weight: ["400", "600"],
@@ -17,6 +19,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
+        <Analytics/>
+        <SpeedInsights/>
         <body className={`
             bg-background-dark text-primary-dark
             ${IBMPlexSansJP.className} font-semibold
