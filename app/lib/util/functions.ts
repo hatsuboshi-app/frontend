@@ -1,11 +1,11 @@
-import { PersistentObjectFilterOptions } from "@hatsuboshi/types/dist/class/abstract/PersistentObject"
 import {
     CharacterFilterOptions,
     DateFilterOptions, decodeSortOptions, encodeSortOptions,
     EnumFilterOptions,
     LocaleStringFilterOptions,
     NumberFilterOptions, PDrinkFilterOptions, PIdolFilterOptions,
-    PItemFilterOptions, SkillFilterOptions, SkillRarity, SortOption
+    PItemFilterOptions, SkillFilterOptions, SkillRarity, SortOption,
+    SkillConsolidatedRarity, PersistentObjectFilterOptions
 } from "@hatsuboshi/types"
 import {
     API_URI,
@@ -15,7 +15,6 @@ import {
     PARAM_SEPARATOR, SEARCH_PARAM_FILTER, SEARCH_PARAM_PAGE, SEARCH_PARAM_PER_PAGE, SEARCH_PARAM_SORT
 } from "@/lib/util/consts"
 import { GetOptions, ReactSetter } from "@/lib/util/types"
-import SkillConsolidatedRarity from "@hatsuboshi/types/dist/enum/SkillConsolidatedRarity"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
 import { SearchParams } from "next/dist/server/request/search-params"
 import { decompressFromEncodedURIComponent } from "lz-string"
