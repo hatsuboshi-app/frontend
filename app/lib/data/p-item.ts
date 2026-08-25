@@ -1,6 +1,5 @@
 import { EnumData } from "@/lib/util/types"
-import Plan from "@hatsuboshi/types/dist/enum/Plan"
-import { PItemSource, Rarity } from "@hatsuboshi/types"
+import { PItemSource, Rarity, Plan } from "@hatsuboshi/types"
 
 export const pItemRarities: EnumData<Rarity>[] = [
     {

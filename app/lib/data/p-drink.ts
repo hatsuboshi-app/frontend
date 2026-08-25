@@ -1,6 +1,5 @@
 import { EnumData } from "@/lib/util/types"
-import { Rarity } from "@hatsuboshi/types"
-import Plan from "@hatsuboshi/types/dist/enum/Plan"
+import { Rarity, Plan } from "@hatsuboshi/types"
 
 export const pDrinkRarities: EnumData<Rarity>[] = [
     {
