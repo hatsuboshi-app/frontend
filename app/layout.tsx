@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         `}>
             <nav className={`
                 sticky top-0 flex
-                flex-none h-screen
+                flex-none
                 tablet:flex-auto tablet:flex-grow tablet:h-screen tablet:max-h-screen
                 tablet:max-w-max-tablet-nav    tablet:min-w-min-tablet-nav   tablet:basis-max-tablet-nav
                 laptop:max-w-max-laptop-nav    laptop:min-w-min-laptop-nav   laptop:basis-max-laptop-nav

@@ -1,5 +1,25 @@
-import { EnumData } from "@/lib/util/types"
-import { PIdolFilterOptions, PIdolPlan, Rarity } from "@hatsuboshi/types"
+import { EnumData, SortDirection } from "@/lib/util/types"
+import { IPIdol, Override, PIdolFilterOptions, PIdolPlan, Rarity, Sortable, SortOption } from "@hatsuboshi/types"
+import { DropdownOption } from "@/components/input/DropdownMenu"
+
+export const pIdolDefaultSortField: Sortable<IPIdol> = "createdAt"
+export const pIdolDefaultSortDirection: SortDirection = "desc"
+export const pIdolHiddenSortOptions: SortOption<IPIdol>[] = [
+    { attribute: "createdAt", ascending: false },
+    { attribute: "rarity", ascending: false },
+    { attribute: "subplan", ascending: true },
+]
+
+export const pIdolSortFields: Override<DropdownOption, { id: Sortable<IPIdol> }>[] = [
+    { id: "name", label: "Name" },
+    { id: "plan", label: "Plan" },
+    { id: "subplan", label: "Sub-Plan" },
+    { id: "rarity", label: "Rarity" },
+    { id: "isWelfare", label: "Is Welfare" },
+    { id: "initialStamina", label: "Stamina" },
+    { id: "createdAt", label: "Date Added" },
+    { id: "updatedAt", label: "Last Updated" }
+]
 
 export const pIdolRarities: EnumData<Rarity>[] = [
     {

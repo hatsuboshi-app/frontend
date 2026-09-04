@@ -1,5 +1,21 @@
-import { EnumData } from "@/lib/util/types"
-import { Rarity, Plan } from "@hatsuboshi/types"
+import { EnumData, SortDirection } from "@/lib/util/types"
+import { Rarity, Plan, Sortable, Override, IPDrink, SortOption } from "@hatsuboshi/types"
+import { DropdownOption } from "@/components/input/DropdownMenu"
+
+export const pDrinkDefaultSortField: Sortable<IPDrink> = "unlockLevel"
+export const pDrinkDefaultSortDirection: SortDirection = "asc"
+export const pDrinkHiddenSortOptions: SortOption<IPDrink>[] = [
+    { attribute: "unlockLevel", ascending: true }
+]
+
+export const pDrinkSortFields: Override<DropdownOption, { id: Sortable<IPDrink> }>[] = [
+    { id: "name", label: "Name" },
+    { id: "plan", label: "Plan" },
+    { id: "rarity", label: "Rarity" },
+    { id: "unlockLevel", label: "Unlock Level" },
+    { id: "createdAt", label: "Date Added" },
+    { id: "updatedAt", label: "Last Updated" }
+]
 
 export const pDrinkRarities: EnumData<Rarity>[] = [
     {

@@ -1,5 +1,21 @@
-import { EnumData } from "@/lib/util/types"
-import { PItemSource, Rarity, Plan } from "@hatsuboshi/types"
+import { EnumData, SortDirection } from "@/lib/util/types"
+import { PItemSource, Rarity, Plan, Sortable, SortOption, Override, IPItem } from "@hatsuboshi/types"
+import { DropdownOption } from "@/components/input/DropdownMenu"
+
+export const pItemDefaultSortField: Sortable<IPItem> = "plan"
+export const pItemDefaultSortDirection: SortDirection = "asc"
+export const pItemHiddenSortOptions: SortOption<IPItem>[] = [
+    { attribute: "plan", ascending: true }
+]
+
+export const pItemSortFields: Override<DropdownOption, { id: Sortable<IPItem> }>[] = [
+    { id: "name", label: "Name" },
+    { id: "plan", label: "Plan" },
+    { id: "rarity", label: "Rarity" },
+    { id: "source", label: "Source" },
+    { id: "createdAt", label: "Date Added" },
+    { id: "updatedAt", label: "Last Updated" }
+]
 
 export const pItemRarities: EnumData<Rarity>[] = [
     {

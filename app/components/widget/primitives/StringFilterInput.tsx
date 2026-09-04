@@ -22,11 +22,11 @@ export default function StringFilterInput({ defaultValue, onChange, title }: Fil
                     placeholder={"Search"}
                     onChange={e => setValue(e.target.value)}
                     className={`
-                        w-full rounded-hatsuboshi p-text-element sm font-normal placeholder-secondary-dark transition-colors
+                        w-full rounded-hatsuboshi p-button sm font-normal placeholder-secondary-dark transition-colors
                         outline focus:outline-accent min-w-0
-                        ${ value !== ""
+                        ${value !== ""
                         ? "outline-accent hover:outline-accent/80"
-                        : "outline-border-dark hover:outline-border-hover-dark" }
+                        : "outline-border-dark hover:outline-border-hover-dark"}
                     `}
                 />
                 <button

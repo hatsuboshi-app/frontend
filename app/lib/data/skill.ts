@@ -1,5 +1,30 @@
-import { Plan, SkillCategory, SkillFilterOptions, SkillSource, SkillConsolidatedRarity } from "@hatsuboshi/types"
-import { EnumData } from "@/lib/util/types"
+import {
+    Plan,
+    SkillCategory,
+    SkillFilterOptions,
+    SkillSource,
+    SkillConsolidatedRarity,
+    Sortable, SortOption, Override, ISkill
+} from "@hatsuboshi/types"
+import { EnumData, SortDirection } from "@/lib/util/types"
+import { DropdownOption } from "@/components/input/DropdownMenu";
+
+export const skillDefaultSortField: Sortable<ISkill> = "unlockLevel"
+export const skillDefaultSortDirection: SortDirection = "asc"
+export const skillHiddenSortOptions: SortOption<ISkill>[] = [
+    { attribute: "unlockLevel", ascending: true }
+]
+
+export const skillSortFields: Override<DropdownOption, { id: Sortable<ISkill> }>[] = [
+    { id: "name", label: "Name" },
+    { id: "plan", label: "Plan" },
+    { id: "rarity", label: "Rarity" },
+    { id: "category", label: "Category" },
+    { id: "source", label: "Source" },
+    { id: "unlockLevel", label: "Unlock Level" },
+    { id: "createdAt", label: "Date Added" },
+    { id: "updatedAt", label: "Last Updated" }
+]
 
 export const skillCategories: EnumData<SkillCategory>[] = [
     {

@@ -69,13 +69,22 @@
 @layer components {
     .card {
         @apply w-full h-48 overflow-hidden
-            border border-border-dark
+            border border-border-dark bg-background-dark
             flex flex-col
             rounded-tr-2xl rounded-bl-2xl
             hover:border-border-hover-dark transition-colors
             py-sm-mobile-gap px-sm-mobile-gap
             tablet:py-sm-tablet-gap tablet:px-sm-tablet-gap
             laptop:py-sm-laptop-gap laptop:px-sm-laptop-gap
+    }
+
+    .button {
+        @apply overflow-ellipsis
+            text-[11.5px] laptop:text-[12px]
+            inline-flex items-center rounded-tr-lg rounded-bl-lg
+            border border-border-dark bg-background-dark
+            hover:border-border-hover-dark transition-colors
+            hover:cursor-pointer font-normal
     }
 }
 
@@ -107,8 +116,12 @@
     @apply uppercase font-normal tracking-wider text-secondary-dark mb-1
 }
 
-.p-text-element {
+.p-button {
     @apply px-3 pt-[5px] pb-1
+}
+
+.p-button-wide {
+    @apply px-3 pt-[7px] pb-1.5
 }
 
 .rounded-hatsuboshi {

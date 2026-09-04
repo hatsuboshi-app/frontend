@@ -30,7 +30,7 @@ export default function FilterButton<T>({ data, onClick, className, boolValue, i
         <button
             onClick={_ => onClick?.()}
             className={`
-                sm font-normal p-text-element rounded-hatsuboshi outline relative
+                sm font-normal p-button rounded-hatsuboshi outline relative
                 hover:cursor-pointer transition-colors group
                 ${styles} ${className}
             `}
