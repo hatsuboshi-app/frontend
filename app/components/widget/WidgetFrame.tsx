@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from "react"
 export default function WidgetFrame({ children }: PropsWithChildren) {
     return (
         <div className={`
-            w-full border border-border-dark bg-background-dark rounded-hatsuboshi-lg relative min-h-14
+            w-full border border-border-dark bg-background-dark rounded-hatsuboshi-lg relative min-h-14 shadow-xl
             p-lg-mobile-gap
             tablet:p-sm-tablet-gap
             laptop:p-sm-laptop-gap

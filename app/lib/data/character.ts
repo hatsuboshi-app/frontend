@@ -6,9 +6,7 @@ export const characterDefaultSortField: Sortable<ICharacter> = "isPlayable"
 export const characterDefaultSortDirection: SortDirection = "desc"
 export const characterHiddenSortOptions: SortOption<ICharacter>[] = [
     { attribute: "isPlayable", ascending: false },
-    { attribute: "createdAt", ascending: true },
-    { attribute: "lastName", ascending: true },
-    { attribute: "firstName", ascending: true },
+    { attribute: "createdAt", ascending: true }
 ]
 
 export const characterSortFields: Override<DropdownOption, { id: Sortable<ICharacter> }>[] = [

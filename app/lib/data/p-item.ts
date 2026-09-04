@@ -5,7 +5,10 @@ import { DropdownOption } from "@/components/input/DropdownMenu"
 export const pItemDefaultSortField: Sortable<IPItem> = "plan"
 export const pItemDefaultSortDirection: SortDirection = "asc"
 export const pItemHiddenSortOptions: SortOption<IPItem>[] = [
-    { attribute: "plan", ascending: true }
+    { attribute: "plan", ascending: true },
+    { attribute: "rarity", ascending: true },
+    { attribute: "source", ascending: true },
+    { attribute: "name", ascending: true }
 ]
 
 export const pItemSortFields: Override<DropdownOption, { id: Sortable<IPItem> }>[] = [

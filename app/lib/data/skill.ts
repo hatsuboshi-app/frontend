@@ -9,10 +9,14 @@ import {
 import { EnumData, SortDirection } from "@/lib/util/types"
 import { DropdownOption } from "@/components/input/DropdownMenu";
 
-export const skillDefaultSortField: Sortable<ISkill> = "unlockLevel"
+export const skillDefaultSortField: Sortable<ISkill> = "source"
 export const skillDefaultSortDirection: SortDirection = "asc"
 export const skillHiddenSortOptions: SortOption<ISkill>[] = [
-    { attribute: "unlockLevel", ascending: true }
+    { attribute: "source", ascending: true },
+    { attribute: "plan", ascending: true },
+    { attribute: "category", ascending: true },
+    { attribute: "rarity", ascending: true },
+    { attribute: "unlockLevel", ascending: true },
 ]
 
 export const skillSortFields: Override<DropdownOption, { id: Sortable<ISkill> }>[] = [

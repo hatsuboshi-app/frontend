@@ -3,12 +3,13 @@ import ResultsWrapper from "@/components/data/wrappers/ResultsWrapper"
 import PIdolCard from "@/components/data/p-idol/PIdolCard"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
 import { getSuspensePaginatorMeta } from "@/lib/util/functions"
-import { getUserSortField } from "@/lib/api/cookies/sortField";
-import { getUserSortDirection } from "@/lib/api/cookies/sortDirection";
+import { getUserSortField } from "@/lib/api/cookies/sortField"
+import { getUserSortDirection } from "@/lib/api/cookies/sortDirection"
+import { PATHS } from "@/lib/util/consts"
 
 export default async function PIdolResults({ data }: { data?: Paginator<PIdol, IPIdol> }) {
     const isSuspense = !data
-    const path = "/p-idol"
+    const path = `/${PATHS.pIdol}`
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)

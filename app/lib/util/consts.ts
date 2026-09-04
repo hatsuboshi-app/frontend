@@ -1,12 +1,37 @@
 // api
 
 import { DropdownItem } from "@/components/input/DropdownMenu"
-import { characterDefaultSortDirection, characterDefaultSortField, characterSortFields } from "@/lib/data/character"
-import { pDrinkDefaultSortDirection, pDrinkDefaultSortField, pDrinkSortFields } from "@/lib/data/p-drink"
-import { pIdolDefaultSortDirection, pIdolDefaultSortField, pIdolSortFields } from "@/lib/data/p-idol"
-import { pItemDefaultSortDirection, pItemDefaultSortField, pItemSortFields } from "@/lib/data/p-item"
-import { skillDefaultSortDirection, skillDefaultSortField, skillSortFields } from "@/lib/data/skill"
-import { Sortable } from "@hatsuboshi/types"
+import {
+    characterDefaultSortDirection,
+    characterDefaultSortField,
+    characterHiddenSortOptions,
+    characterSortFields
+} from "@/lib/data/character"
+import {
+    pDrinkDefaultSortDirection,
+    pDrinkDefaultSortField,
+    pDrinkHiddenSortOptions,
+    pDrinkSortFields
+} from "@/lib/data/p-drink"
+import {
+    pIdolDefaultSortDirection,
+    pIdolDefaultSortField,
+    pIdolHiddenSortOptions,
+    pIdolSortFields
+} from "@/lib/data/p-idol"
+import {
+    pItemDefaultSortDirection,
+    pItemDefaultSortField,
+    pItemHiddenSortOptions,
+    pItemSortFields
+} from "@/lib/data/p-item"
+import {
+    skillDefaultSortDirection,
+    skillDefaultSortField,
+    skillHiddenSortOptions,
+    skillSortFields
+} from "@/lib/data/skill"
+import { Sortable, SortOption } from "@hatsuboshi/types"
 import { SortDirection } from "@/lib/util/types"
 
 export const API_URI = process.env.NEXT_PUBLIC_API_URI ?? "http://localhost:3001"
@@ -82,4 +107,11 @@ export const DEFAULT_SORT_DIRECTIONS: { [key: string]: SortDirection } = {
     [`/${PATHS.pIdol}`]: pIdolDefaultSortDirection,
     [`/${PATHS.pItem}`]: pItemDefaultSortDirection,
     [`/${PATHS.skill}`]: skillDefaultSortDirection,
+}
+export const HIDDEN_SORT_OPTIONS: { [key: string]: SortOption<any>[] } = {
+    [`/${PATHS.character}`]: characterHiddenSortOptions,
+    [`/${PATHS.pDrink}`]: pDrinkHiddenSortOptions,
+    [`/${PATHS.pIdol}`]: pIdolHiddenSortOptions,
+    [`/${PATHS.pItem}`]: pItemHiddenSortOptions,
+    [`/${PATHS.skill}`]: skillHiddenSortOptions,
 }

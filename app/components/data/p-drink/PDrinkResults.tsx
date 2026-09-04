@@ -5,10 +5,11 @@ import { getSuspensePaginatorMeta } from "@/lib/util/functions"
 import PDrinkCard from "@/components/data/p-drink/PDrinkCard"
 import { getUserSortField } from "@/lib/api/cookies/sortField"
 import { getUserSortDirection } from "@/lib/api/cookies/sortDirection"
+import { PATHS } from "@/lib/util/consts"
 
 export default async function PDrinkResults({ data }: { data?: Paginator<PDrink, IPDrink> }) {
     const isSuspense = !data
-    const path = "/p-drink"
+    const path = `/${PATHS.pDrink}`
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)

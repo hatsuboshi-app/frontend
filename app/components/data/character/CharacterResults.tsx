@@ -5,10 +5,11 @@ import { getSuspensePaginatorMeta } from "@/lib/util/functions"
 import CharacterCard from "@/components/data/character/CharacterCard"
 import { getUserSortField } from "@/lib/api/cookies/sortField"
 import { getUserSortDirection } from "@/lib/api/cookies/sortDirection"
+import { PATHS } from "@/lib/util/consts"
 
 export default async function CharacterResults({ data }: { data?: Paginator<Character, ICharacter> }) {
     const isSuspense = !data
-    const path = "/character"
+    const path = `/${PATHS.character}`
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)
