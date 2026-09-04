@@ -1,12 +1,20 @@
-import React, { PropsWithChildren } from "react"
+import React, { PropsWithChildren, useState } from "react"
+import { LuMinimize2 } from "react-icons/lu"
+import { IconType } from "react-icons"
 
-export default function WidgetFrame({ children }: PropsWithChildren) {
+type WidgetFrameProps = {
+    icon: IconType
+}
+
+export default function WidgetFrame({ icon, children }: PropsWithChildren<WidgetFrameProps>) {
+    const [minimized, setMinimized] = useState<boolean>(false)
+    const Icon = icon
+
     return (
         <div className={`
-            w-full border border-border-dark bg-background-dark rounded-hatsuboshi-lg relative min-h-14 shadow-xl
-            p-lg-mobile-gap
-            tablet:p-sm-tablet-gap
-            laptop:p-sm-laptop-gap
+            border border-border-dark bg-background-dark relative shadow-xl desktop:shadow-none pointer-events-auto
+            ${minimized ? "rounded-full h-18 w-18 ml-auto" : "rounded-hatsuboshi-lg min-h-18 w-full"}
+            p-lg-mobile-gap tablet:p-sm-tablet-gap laptop:p-sm-laptop-gap
         `}>
             <div className={`
                 flex flex-row-reverse absolute rounded-r-xl
@@ -15,13 +23,17 @@ export default function WidgetFrame({ children }: PropsWithChildren) {
                 laptop:gap-x-sm-laptop-gap
             `}>
                 <button
-                    className={"h-14 w-14 hover:cursor-pointer text-secondary-dark hover:text-primary-dark transition-colors"}
-                    onClick={() => {}}
+                    className={`
+                        hover:cursor-pointer hover:text-primary-dark transition-colors desktop:hidden
+                        ${minimized ? "text-accent h-18 w-18" : "text-secondary-dark h-18 w-18"}
+                        items-center flex justify-center
+                    `}
+                    onClick={() => { setMinimized(v => !v) }}
                 >
-                    X
+                    {minimized ? <Icon size={26}/> : <LuMinimize2 size={20}/>}
                 </button>
             </div>
-            <div>
+            <div className={minimized ? "hidden desktop:block" : "block"}>
                 {children}
             </div>
         </div>

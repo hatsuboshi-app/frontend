@@ -70,7 +70,7 @@ export default function DropdownMenu({ label, items, align = "left", labelPositi
                 onClick={() => open ? close(false) : setOpen(true)}
                 aria-haspopup={"menu"}
                 aria-expanded={open}
-                className={`button p-button-wide`}
+                className={`button p-button-wide z-10`}
             >
                 {isSelect ? (
                     <>
@@ -108,9 +108,8 @@ export default function DropdownMenu({ label, items, align = "left", labelPositi
             {open && (
                 <ul
                     role={"listbox"}
-                    tabIndex={-1}
                     className={`
-                        absolute z-20 w-48 overflow-hidden focus:outline-none rounded-hatsuboshi mt-1
+                        absolute w-48 overflow-hidden focus:outline-none rounded-hatsuboshi mt-1 z-10
                         border-1 border-border-dark bg-background-dark shadow-xl
                         transition duration-150 ease-out motion-reduce:transition-none
                         ${align === "right" ? "right-0 origin-top-right" : "left-0 origin-top-left"}

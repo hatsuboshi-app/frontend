@@ -49,7 +49,7 @@ export default function ResultsWrapper({ children, paginatorMeta, currentSortFie
     return (
         <div className={"flex flex-col w-full"}>
             <div className={`
-                flex flex-row w-full
+                flex flex-row flex-wrap w-full
                 mb-xs-mobile-gap gap-xs-mobile-gap
                 tablet:mb-xs-tablet-gap tablet:gap-xs-tablet-gap
                 laptop:mb-xs-laptop-gap laptop:gap-xs-laptop-gap

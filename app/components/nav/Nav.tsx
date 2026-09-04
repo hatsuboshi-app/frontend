@@ -6,7 +6,7 @@ import NavMain from "@/components/nav/NavMain"
 export default function Nav() {
     return (
         <div className={`
-            flex flex-row justify-center items-center text-center w-full relative h-14
+            flex flex-row justify-center items-center text-center w-full relative h-14 z-50
             tablet:justify-start tablet:flex-col tablet:h-full tablet:border-r tablet:border-border-dark
             tablet:py-sm-tablet-gap tablet:gap-y-sm-tablet-gap
             laptop:py-sm-laptop-gap laptop:gap-y-sm-laptop-gap

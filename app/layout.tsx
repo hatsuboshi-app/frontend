@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             overflow-x-hidden -mr-[calc(100vw-100%)]
         `}>
             <nav className={`
-                sticky top-0 flex
+                sticky top-0 flex z-50
                 flex-none
                 tablet:flex-auto tablet:flex-grow tablet:h-screen tablet:max-h-screen
                 tablet:max-w-max-tablet-nav    tablet:min-w-min-tablet-nav   tablet:basis-max-tablet-nav
@@ -67,11 +67,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         {children}
                     </div>
                     <div className={`
-                        fixed flex flex-col
+                        fixed flex flex-col pointer-events-none
                         right-lg-mobile-gap bottom-sm-mobile-gap w-[calc(100%-var(--spacing-lg-mobile-gap)*2)]
                         tablet:right-lg-tablet-gap tablet:bottom-sm-tablet-gap tablet:w-[calc(100%-var(--spacing-lg-tablet-gap)*2-var(--spacing-min-tablet-nav))]
                         laptop:right-lg-laptop-gap laptop:bottom-sm-laptop-gap laptop:w-max-sidenav
-                        desktop:h-[calc(100vh-(var(--spacing-sm-laptop-gap)*2))]
                         desktop:sticky desktop:top-sm-laptop-gap desktop:max-w-max-sidenav desktop:min-w-min-sidenav
                     `}>
                         <WidgetNav/>

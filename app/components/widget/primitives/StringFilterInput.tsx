@@ -2,6 +2,7 @@ import { FilterInputProps } from "@/lib/util/types"
 import React, { useEffect, useState } from "react"
 import useDebouncer from "@/lib/hooks/useDebouncer"
 import { INPUT_DEBOUNCE_TIME } from "@/lib/util/consts"
+import { IoClose } from "react-icons/io5"
 
 export default function StringFilterInput({ defaultValue, onChange, title }: FilterInputProps<string>) {
     const [value, setValue] = useState(defaultValue ?? "")
@@ -22,7 +23,7 @@ export default function StringFilterInput({ defaultValue, onChange, title }: Fil
                     placeholder={"Search"}
                     onChange={e => setValue(e.target.value)}
                     className={`
-                        w-full rounded-hatsuboshi p-button sm font-normal placeholder-secondary-dark transition-colors
+                        w-full rounded-hatsuboshi p-button-wide sm font-normal placeholder-secondary-dark transition-colors
                         outline focus:outline-accent min-w-0
                         ${value !== ""
                         ? "outline-accent hover:outline-accent/80"
@@ -40,7 +41,7 @@ export default function StringFilterInput({ defaultValue, onChange, title }: Fil
                         hover:text-primary-dark hover:cursor-pointer transition-colors 
                     `}
                 >
-                    x
+                    <IoClose size={16}/>
                 </button>
             </div>
         </div>
