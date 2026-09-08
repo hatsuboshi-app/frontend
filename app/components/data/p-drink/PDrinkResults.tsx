@@ -1,7 +1,6 @@
 import { IPDrink, Paginator, PDrink } from "@hatsuboshi/types"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
-import ResultsWrapper from "@/components/data/wrappers/ResultsWrapper"
-import { getSuspensePaginatorMeta } from "@/lib/util/functions"
+import ResultsWrapper from "@/components/data/ResultsWrapper"
 import PDrinkCard from "@/components/data/p-drink/PDrinkCard"
 import { getUserSortField } from "@/lib/api/cookies/sortField"
 import { getUserSortDirection } from "@/lib/api/cookies/sortDirection"
@@ -16,7 +15,8 @@ export default async function PDrinkResults({ data }: { data?: Paginator<PDrink,
 
     return (
         <ResultsWrapper
-            paginatorMeta={isSuspense ? getSuspensePaginatorMeta(pageSize) : data.meta}
+            paginatorMeta={isSuspense ? undefined : data.meta}
+            pageSize={isSuspense ? pageSize : undefined}
             currentSortField={sortField}
             currentSortDirection={sortDirection}
             className={`

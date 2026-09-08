@@ -63,14 +63,14 @@ export default function DropdownMenu({ label, items, align = "left", labelPositi
     }, [open, close])
 
     return (
-        <div className={"relative inline-block"} ref={wrapRef}>
+        <div className={"relative block grow-0"} ref={wrapRef}>
             <button
                 ref={triggerRef}
                 type={"button"}
                 onClick={() => open ? close(false) : setOpen(true)}
                 aria-haspopup={"menu"}
                 aria-expanded={open}
-                className={`button p-button-wide z-10`}
+                className={`button p-button-wide z-10 h-8`}
             >
                 {isSelect ? (
                     <>
@@ -128,7 +128,7 @@ export default function DropdownMenu({ label, items, align = "left", labelPositi
                                     type={"button"}
                                     disabled={item.disabled}
                                     onClick={() => {
-                                        onSelect?.(item)
+                                        if (item.id !== selectedId) onSelect?.(item)
                                         close(true)
                                     }}
                                     className={`

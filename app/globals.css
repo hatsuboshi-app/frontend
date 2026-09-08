@@ -18,8 +18,8 @@
     --breakpoint-mobile-wide: 360px;
 
     --spacing-lg-mobile-gap: 10px;
-    --spacing-sm-mobile-gap: 8px;
-    --spacing-xs-mobile-gap: 6px;
+    --spacing-sm-mobile-gap: 9px;
+    --spacing-xs-mobile-gap: 8px;
 
 
     /* tablet */
@@ -83,9 +83,16 @@
             text-[11.5px] laptop:text-[12px]
             inline-flex items-center rounded-tr-lg rounded-bl-lg
             border border-border-dark bg-background-dark
-            hover:border-border-hover-dark transition-colors
-            hover:cursor-pointer font-normal
+            not-disabled:hover:border-border-hover-dark transition-colors
+            not-disabled:hover:cursor-pointer font-normal
+            disabled:text-secondary-dark/50
     }
+}
+
+h1 {
+    @apply text-[32px] tablet:text-[39px] laptop:text-[48px]
+    pt-xs-mobile-gap tablet:pt-xs-tablet-gap laptop:pt-xs-laptop-gap
+    mb-sm-mobile-gap tablet:mb-sm-tablet-gap laptop:mb-sm-laptop-gap
 }
 
 .xxl {
@@ -93,11 +100,11 @@
 }
 
 .xl {
-    @apply text-[20px] tablet:text-[22.5px] laptop:text-[27px]
+    @apply text-[22px] tablet:text-[24px] laptop:text-[27px]
 }
 
 .lg {
-    @apply text-[16px] laptop:text-[19px]
+    @apply text-[17px] laptop:text-[19px]
 }
 
 .md {

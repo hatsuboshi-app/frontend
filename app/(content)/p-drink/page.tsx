@@ -9,8 +9,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<Sea
     const suspenseKey = JSON.stringify(sp) + (await cookies()).toString()
 
     return (
-        <Suspense key={suspenseKey} fallback={<PDrinkResults/>}>
-            <PDrinkSearch searchParams={sp}/>
-        </Suspense>
+        <>
+            <h1>P-Drinks</h1>
+            <Suspense key={suspenseKey} fallback={<PDrinkResults/>}>
+                <PDrinkSearch searchParams={sp}/>
+            </Suspense>
+        </>
     )
 }

@@ -12,8 +12,10 @@ export default function WidgetFrame({ icon, children }: PropsWithChildren<Widget
 
     return (
         <div className={`
-            border border-border-dark bg-background-dark relative shadow-xl desktop:shadow-none pointer-events-auto
-            ${minimized ? "rounded-full h-18 w-18 ml-auto" : "rounded-hatsuboshi-lg min-h-18 w-full"}
+            border border-border-dark bg-background-dark relative shadow-xl desktop:shadow-none pointer-events-auto rounded-hatsuboshi-lg
+            ${minimized
+              ? "max-desktop:!rounded-full max-desktop:h-18 max-desktop:w-18 max-desktop:ml-auto"
+              : "min-h-18 w-full"}
             p-lg-mobile-gap tablet:p-sm-tablet-gap laptop:p-sm-laptop-gap
         `}>
             <div className={`

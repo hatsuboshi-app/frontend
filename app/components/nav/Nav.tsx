@@ -11,7 +11,7 @@ export default function Nav() {
             tablet:py-sm-tablet-gap tablet:gap-y-sm-tablet-gap
             laptop:py-sm-laptop-gap laptop:gap-y-sm-laptop-gap
         `}>
-            <div className={`flex items-center`}>
+            <div className={`flex items-center tablet:mt-xs-tablet-gap laptop:mt-xs-laptop-gap`}>
                 <NavLogo/>
             </div>
             <div className={"hidden tablet:block"}>

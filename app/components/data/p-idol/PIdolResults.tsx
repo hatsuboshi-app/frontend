@@ -1,8 +1,7 @@
 import { IPIdol, Paginator, PIdol } from "@hatsuboshi/types"
-import ResultsWrapper from "@/components/data/wrappers/ResultsWrapper"
+import ResultsWrapper from "@/components/data/ResultsWrapper"
 import PIdolCard from "@/components/data/p-idol/PIdolCard"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
-import { getSuspensePaginatorMeta } from "@/lib/util/functions"
 import { getUserSortField } from "@/lib/api/cookies/sortField"
 import { getUserSortDirection } from "@/lib/api/cookies/sortDirection"
 import { PATHS } from "@/lib/util/consts"
@@ -16,7 +15,8 @@ export default async function PIdolResults({ data }: { data?: Paginator<PIdol, I
 
     return (
         <ResultsWrapper
-            paginatorMeta={isSuspense ? getSuspensePaginatorMeta(pageSize) : data.meta}
+            paginatorMeta={isSuspense ? undefined : data.meta}
+            pageSize={isSuspense ? pageSize : undefined}
             currentSortField={sortField}
             currentSortDirection={sortDirection}
             className={`

@@ -59,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     desktop:gap-x-lg-laptop-gap
                 `}>
                     <div className={`
-                        flex flex-grow w-full
+                        flex flex-col flex-grow w-full
                         tablet:max-w-max-tablet-main    tablet:min-w-min-tablet-main
                         laptop:max-w-max-laptop-main    laptop:min-w-min-laptop-main
                         desktop:max-w-max-desktop-main  desktop:min-w-min-desktop-main
@@ -69,8 +69,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <div className={`
                         fixed flex flex-col pointer-events-none
                         right-lg-mobile-gap bottom-sm-mobile-gap w-[calc(100%-var(--spacing-lg-mobile-gap)*2)]
-                        tablet:right-lg-tablet-gap tablet:bottom-sm-tablet-gap tablet:w-[calc(100%-var(--spacing-lg-tablet-gap)*2-var(--spacing-min-tablet-nav))]
-                        laptop:right-lg-laptop-gap laptop:bottom-sm-laptop-gap laptop:w-max-sidenav
+                        tablet:right-lg-tablet-gap tablet:bottom-sm-tablet-gap tablet:w-max-sidenav
+                        laptop:right-lg-laptop-gap laptop:bottom-sm-laptop-gap 
                         desktop:sticky desktop:top-sm-laptop-gap desktop:max-w-max-sidenav desktop:min-w-min-sidenav
                     `}>
                         <WidgetNav/>
