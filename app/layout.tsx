@@ -4,8 +4,8 @@ import "@/globals.css"
 import { IBM_Plex_Sans_JP } from 'next/font/google'
 import Nav from "@/components/nav/Nav"
 import WidgetNav from "@/components/widget/WidgetNav"
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 const IBMPlexSansJP = IBM_Plex_Sans_JP({
     weight: ["400", "600"],
@@ -13,7 +13,11 @@ const IBMPlexSansJP = IBM_Plex_Sans_JP({
 })
 
 export const metadata: Metadata = {
-  title: "Hatsuboshi"
+    title: {
+      template: "%s - Hatsuboshi App",
+      default: "Hatsuboshi App"
+    },
+    description: "A Gakuen IDOLM@STER website designed to help students in the producer division succeed at Hatsuboshi Academy."
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

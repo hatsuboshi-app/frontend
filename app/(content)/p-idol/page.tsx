@@ -3,6 +3,11 @@ import { Suspense } from "react"
 import PIdolSearch from "@/components/data/p-idol/PIdolSearch"
 import PIdolResults from "@/components/data/p-idol/PIdolResults"
 import { cookies } from "next/headers"
+import { type Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Produce Idols'
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
     const sp = await searchParams

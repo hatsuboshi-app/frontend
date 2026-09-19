@@ -3,6 +3,11 @@ import { cookies } from "next/headers"
 import { Suspense } from "react"
 import CharacterSearch from "@/components/data/character/CharacterSearch"
 import CharacterResults from "@/components/data/character/CharacterResults"
+import { type Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Characters'
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
     const sp = await searchParams

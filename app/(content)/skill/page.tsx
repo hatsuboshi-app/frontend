@@ -3,6 +3,11 @@ import SkillSearch from "@/components/data/skill/SkillSearch"
 import { Suspense } from "react"
 import SkillResults from "@/components/data/skill/SkillResults"
 import { cookies } from "next/headers"
+import { type Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Skill Cards'
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
     const sp = await searchParams
