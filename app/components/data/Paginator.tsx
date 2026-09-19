@@ -35,7 +35,7 @@ export default function Paginator({ meta }: { meta?: IPaginator<any>["meta"] }){
         <div className={"sm inline-flex flex-row gap-xs-mobile-gap tablet:gap-xs-tablet-gap laptop:gap-xs-laptop-gap h-8"}>
             <div className={"flex flex-row flex-nowrap"}>
                 <button
-                    className={"rounded-hatsuboshi !rounded-tr-none button aspect-square flex items-center justify-center translate-x-[1px]"}
+                    className={"rounded-hatsuboshi !rounded-tr-none button h-8 w-8 flex items-center justify-center translate-x-[1px]"}
                     disabled={previousPage === null}
                     onClick={() => {
                         params.delete(SEARCH_PARAM_PAGE)
@@ -45,7 +45,7 @@ export default function Paginator({ meta }: { meta?: IPaginator<any>["meta"] }){
                     <LuChevronFirst size={20}/>
                 </button>
                 <button
-                    className={"rounded-hatsuboshi !rounded-bl-none button aspect-square flex items-center justify-center"}
+                    className={"rounded-hatsuboshi !rounded-bl-none button h-8 w-8 flex items-center justify-center"}
                     disabled={previousPage === null}
                     onClick={() => {
                         if (previousPage) {
@@ -63,7 +63,7 @@ export default function Paginator({ meta }: { meta?: IPaginator<any>["meta"] }){
             </span>}
             {meta === undefined && <div className={"h-3 w-[118px] my-auto bg-secondary-dark/11 rounded-full"}/>}
             <button
-                className={"rounded-hatsuboshi button aspect-square flex items-center justify-center"}
+                className={"rounded-hatsuboshi button h-8 w-8 flex items-center justify-center"}
                 disabled={nextPage === null}
                 onClick={() => {
                     if (nextPage) {

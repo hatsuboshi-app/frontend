@@ -3,6 +3,11 @@ import { cookies } from "next/headers"
 import { Suspense } from "react"
 import PItemSearch from "@/components/data/p-item/PItemSearch"
 import PItemResults from "@/components/data/p-item/PItemResults"
+import { type Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'P-Items'
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
     const sp = await searchParams
