@@ -1,11 +1,20 @@
-![Logo](https://github.com/user-attachments/assets/d3ce186e-11fb-460d-a9a6-8dd8e0633e3d)
+![Logo](https://github.com/user-attachments/assets/afaff43c-1961-46b4-a190-29a35795b6b5)
 
 <h1 align="center">Hatsuboshi App</h1>
 
-**[Hatsuboshi App](https://hatsuboshi.app/) is an unofficial _Gakuen IDOLM@STER_ companion web app designed to help students succeed in the producer division at Hatsuboshi Academy.**
+<div align="center">
+  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white">
+  <img src="https://img.shields.io/badge/Next.js-%23000.svg?style=for-the-badge&logo=next.js&logoColor=white">
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB">
+  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white">
+  <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white">
+</div>
+<br>
+
+**[Hatsuboshi App](https://hatsuboshi.app/) is an unofficial _Gakuen IDOLM@STER_ companion web app, designed to help students succeed in the producer division at Hatsuboshi Academy.**
 
 - Browse, filter & search for various in-game assets / resources (e.g. Skills, P-Idols, Support Cards, etc.)
-- High quality, community-maintained English translations for in-game resources (with emphasis on _quality_)
+- High quality, community-maintained English translations for in-game resources (with an emphasis on _quality_)
 - Download, share or embed in-game assets / resources on various social media platforms
 - Organize, design & visualize skill card / support card loadouts without committing to a produce run
 - Various useful tools to help with raising your tantou idol to become the Prima Stella, and beyond!
@@ -46,9 +55,9 @@ $ npm run start
 
 This app uses [GitHub Actions](https://github.com/features/actions) to automatically run CI/CD pipelines for deployment.
 
-- The `main` branch automatically deploys to the production environment (https://hatsuboshi.app) on every push.
-- The `dev` branch automatically deploys to the development environment (https://dev.hatsuboshi.app) on every push.
-- For every other branch, a development preview deployment is automatically ran on every push.
+- The `main` branch automatically deploys to the production environment ([`https://hatsuboshi.app`](https://hatsuboshi.app)).
+- The `dev` branch automatically deploys to the development environment ([`https://dev.hatsuboshi.app`](https://dev.hatsuboshi.app)).
+- For every other branch, a development preview deployment is deployed on every push.
 
 ## Contributing
 
