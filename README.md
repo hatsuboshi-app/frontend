@@ -1,6 +1,6 @@
 ![Logo](https://github.com/user-attachments/assets/d3ce186e-11fb-460d-a9a6-8dd8e0633e3d)
 
-# Hatsuboshi App
+<h1 align="center">Hatsuboshi App</h1>
 
 **[Hatsuboshi App](https://hatsuboshi.app/) is an unofficial _Gakuen IDOLM@STER_ companion web app designed to help students succeed in the producer division at Hatsuboshi Academy.**
 
