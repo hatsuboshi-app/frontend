@@ -1,4 +1,4 @@
-![Logo](https://github.com/user-attachments/assets/afaff43c-1961-46b4-a190-29a35795b6b5)
+![Logo](https://github.com/user-attachments/assets/b923a9b2-3bb2-4dfd-b3f9-c19469357282)
 
 <h1 align="center">Hatsuboshi App</h1>
 
@@ -67,7 +67,7 @@ When contributing, please use _feature branching_ when implementing new features
 
 Feel free to contact me, [@HuzzuDesu on Twitter](https://x.com/HuzzuDesu) or `@huzzudesu` on Discord for any other questions or inquiries.
 
-**There is currently no Discord server for the purposes of development for this app.**
+**There is currently no Discord server for the purposes of development for this project.**
 
 ## Disclaimer
 
