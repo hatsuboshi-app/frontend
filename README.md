@@ -72,4 +72,4 @@ Feel free to contact me, [@HuzzuDesu on Twitter](https://x.com/HuzzuDesu) or `@h
 ## Disclaimer
 
 > [!WARNING]
-> This app is a part of a fan-made project and **NOT** an officially endorsed app for Gakuen IDOLM@STER, nor is it associated with BNEI, QualiArts Inc., or any other official entities. All rights to assets, contents & data belong to their respective copyright owners.
+> This app is a part of a fan-made project and **NOT** an officially endorsed app for Gakuen IDOLM@STER, nor is it associated with BNEI, QualiArts Inc., or any other official entities. All rights to the original game assets, content, and intellectual property belong to their respective copyright owners.
