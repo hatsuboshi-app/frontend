@@ -18,8 +18,8 @@
     --breakpoint-mobile-wide: 360px;
 
     --spacing-lg-mobile-gap: 10px;
-    --spacing-sm-mobile-gap: 8px;
-    --spacing-xs-mobile-gap: 6px;
+    --spacing-sm-mobile-gap: 9px;
+    --spacing-xs-mobile-gap: 8px;
 
 
     /* tablet */
@@ -69,7 +69,7 @@
 @layer components {
     .card {
         @apply w-full h-48 overflow-hidden
-            border border-border-dark
+            border border-border-dark bg-background-dark
             flex flex-col
             rounded-tr-2xl rounded-bl-2xl
             hover:border-border-hover-dark transition-colors
@@ -77,6 +77,22 @@
             tablet:py-sm-tablet-gap tablet:px-sm-tablet-gap
             laptop:py-sm-laptop-gap laptop:px-sm-laptop-gap
     }
+
+    .button {
+        @apply overflow-ellipsis
+            text-[11.5px] laptop:text-[12px]
+            inline-flex items-center rounded-tr-lg rounded-bl-lg
+            border border-border-dark bg-background-dark
+            not-disabled:hover:border-border-hover-dark transition-colors
+            not-disabled:hover:cursor-pointer font-normal
+            disabled:text-secondary-dark/50
+    }
+}
+
+h1 {
+    @apply text-[32px] tablet:text-[39px] laptop:text-[48px]
+    pt-xs-mobile-gap tablet:pt-xs-tablet-gap laptop:pt-xs-laptop-gap
+    mb-sm-mobile-gap tablet:mb-sm-tablet-gap laptop:mb-sm-laptop-gap
 }
 
 .xxl {
@@ -84,11 +100,11 @@
 }
 
 .xl {
-    @apply text-[20px] tablet:text-[22.5px] laptop:text-[27px]
+    @apply text-[22px] tablet:text-[24px] laptop:text-[27px]
 }
 
 .lg {
-    @apply text-[16px] laptop:text-[19px]
+    @apply text-[17px] laptop:text-[19px]
 }
 
 .md {
@@ -107,8 +123,12 @@
     @apply uppercase font-normal tracking-wider text-secondary-dark mb-1
 }
 
-.p-text-element {
+.p-button {
     @apply px-3 pt-[5px] pb-1
+}
+
+.p-button-wide {
+    @apply px-3 pt-[7px] pb-1.5
 }
 
 .rounded-hatsuboshi {

@@ -4,8 +4,8 @@ import "@/globals.css"
 import { IBM_Plex_Sans_JP } from 'next/font/google'
 import Nav from "@/components/nav/Nav"
 import WidgetNav from "@/components/widget/WidgetNav"
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 const IBMPlexSansJP = IBM_Plex_Sans_JP({
     weight: ["400", "600"],
@@ -13,7 +13,11 @@ const IBMPlexSansJP = IBM_Plex_Sans_JP({
 })
 
 export const metadata: Metadata = {
-  title: "Hatsuboshi"
+    title: {
+      template: "%s - Hatsuboshi App",
+      default: "Hatsuboshi App"
+    },
+    description: "A Gakuen IDOLM@STER website designed to help students in the producer division succeed at Hatsuboshi Academy."
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -29,8 +33,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             overflow-x-hidden -mr-[calc(100vw-100%)]
         `}>
             <nav className={`
-                sticky top-0 flex
-                flex-none h-screen
+                sticky top-0 flex z-50
+                flex-none
                 tablet:flex-auto tablet:flex-grow tablet:h-screen tablet:max-h-screen
                 tablet:max-w-max-tablet-nav    tablet:min-w-min-tablet-nav   tablet:basis-max-tablet-nav
                 laptop:max-w-max-laptop-nav    laptop:min-w-min-laptop-nav   laptop:basis-max-laptop-nav
@@ -59,7 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     desktop:gap-x-lg-laptop-gap
                 `}>
                     <div className={`
-                        flex flex-grow w-full
+                        flex flex-col flex-grow w-full
                         tablet:max-w-max-tablet-main    tablet:min-w-min-tablet-main
                         laptop:max-w-max-laptop-main    laptop:min-w-min-laptop-main
                         desktop:max-w-max-desktop-main  desktop:min-w-min-desktop-main
@@ -67,11 +71,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         {children}
                     </div>
                     <div className={`
-                        fixed flex flex-col
+                        fixed flex flex-col pointer-events-none
                         right-lg-mobile-gap bottom-sm-mobile-gap w-[calc(100%-var(--spacing-lg-mobile-gap)*2)]
-                        tablet:right-lg-tablet-gap tablet:bottom-sm-tablet-gap tablet:w-[calc(100%-var(--spacing-lg-tablet-gap)*2-var(--spacing-min-tablet-nav))]
-                        laptop:right-lg-laptop-gap laptop:bottom-sm-laptop-gap laptop:w-max-sidenav
-                        desktop:h-[calc(100vh-(var(--spacing-sm-laptop-gap)*2))]
+                        tablet:right-lg-tablet-gap tablet:bottom-sm-tablet-gap tablet:w-max-sidenav
+                        laptop:right-lg-laptop-gap laptop:bottom-sm-laptop-gap 
                         desktop:sticky desktop:top-sm-laptop-gap desktop:max-w-max-sidenav desktop:min-w-min-sidenav
                     `}>
                         <WidgetNav/>

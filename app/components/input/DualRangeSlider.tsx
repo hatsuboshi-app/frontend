@@ -16,7 +16,7 @@ type DualRangeSliderProps = Partial<{
     disabled: boolean
 }>
 
-export default function DualRangeSlider({min = 0, max = 80, step = 1, defaultValue, onChange, minGap = 0, formatLabel = (v) => `${v}`, className = '', disabled = false }: DualRangeSliderProps) {
+export default function DualRangeSlider({ min = 0, max = 80, step = 1, defaultValue, onChange, minGap = 0, formatLabel = (v) => `${v}`, className = '', disabled = false }: DualRangeSliderProps) {
     const trackRef = useRef<HTMLDivElement>(null)
     const activeThumb = useRef<Thumb | null>(null)
     const baseId = useId()

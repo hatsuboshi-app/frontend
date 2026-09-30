@@ -7,7 +7,6 @@ export default function FilterWidgetWrapper({ children }: React.PropsWithChildre
             gap-y-lg-mobile-gap
             tablet:gap-y-sm-tablet-gap
             laptop:gap-y-sm-laptop-gap
-            pt-1
         `}>
             {children}
         </div>

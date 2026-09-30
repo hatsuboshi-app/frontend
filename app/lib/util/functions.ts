@@ -10,7 +10,7 @@ import {
 import {
     API_URI,
     API_VERSION,
-    COND_SEPARATOR,
+    COND_SEPARATOR, HIDDEN_SORT_OPTIONS,
     PARAM_DELIMITER,
     PARAM_SEPARATOR, SEARCH_PARAM_FILTER, SEARCH_PARAM_PAGE, SEARCH_PARAM_PER_PAGE, SEARCH_PARAM_SORT
 } from "@/lib/util/consts"
@@ -18,12 +18,22 @@ import { GetOptions, ReactSetter } from "@/lib/util/types"
 import { getUserPerPage } from "@/lib/api/cookies/perPage"
 import { SearchParams } from "next/dist/server/request/search-params"
 import { decompressFromEncodedURIComponent } from "lz-string"
+import { getUserSortField } from "@/lib/api/cookies/sortField";
+import { getUserSortDirection } from "@/lib/api/cookies/sortDirection";
 
 export async function getHeader(): Promise<Headers> {
     const headers: Headers = new Headers()
     headers.append("Content-Type", "application/json")
     headers.append("Accept", "application/json")
     return headers
+}
+
+export async function getSortOption<T>(path: string): Promise<SortOption<T>[]> {
+    const field = await getUserSortField(path)
+    const direction = await getUserSortDirection(path)
+    const s: SortOption<any> = { attribute: field, ascending: direction === "asc" }
+    const s1 = HIDDEN_SORT_OPTIONS[path]
+    return prependSortOption(s, s1)
 }
 
 export async function getGetURL<F extends {}, I>(path: string = "", { filter, sort, p, pp }: GetOptions<F, I> = {}): Promise<string> {
@@ -39,7 +49,7 @@ export function getSuspensePaginatorMeta(pageSize: number) {
     return { pageSize: pageSize, totalPages: 1, totalItems: 1, currentPage: 1 }
 }
 
-export function getPFSFromSearchParams<F extends {}, I>(sp: SearchParams, filterExpand: (s?: string) => F | undefined): [ number | undefined, F | undefined, SortOption<I>[] | undefined] {
+export function getPageAndFilterFromSearchParams<F extends {}>(sp: SearchParams, filterExpand: (s?: string) => F | undefined): [ number | undefined, F | undefined ] {
     const [p, f, s] = [sp[SEARCH_PARAM_PAGE], sp[SEARCH_PARAM_FILTER], sp[SEARCH_PARAM_SORT]]
 
     // parse page
@@ -57,12 +67,7 @@ export function getPFSFromSearchParams<F extends {}, I>(sp: SearchParams, filter
         ? filterExpand(decompressFromEncodedURIComponent(typeof f === "string" ? f : f[0]))
         : undefined
 
-    // parse sort
-    const sort = s
-        ? decodeSortOptions<I>(decompressFromEncodedURIComponent(typeof s === "string" ? s : s[0]))
-        : undefined
-
-    return [page, filter, sort]
+    return [page, filter]
 }
 
 export function formatMinimizedParam(key: string, condition: string | undefined): string | undefined {
@@ -575,4 +580,9 @@ export function skillDeconsolidateRarity(consolidated: SkillConsolidatedRarity[]
     if (consolidated.includes(SkillConsolidatedRarity.SSR)) rarities.push(SkillRarity.SSR)
     if (consolidated.includes(SkillConsolidatedRarity.Legend)) rarities.push(SkillRarity.Legend)
     return rarities
+}
+
+export function prependSortOption<T>(s: SortOption<T>, s1: SortOption<T>[]): SortOption<T>[] {
+    const s2 = s1.filter(i => i.attribute !== s.attribute)
+    return [ s, ...s2 ]
 }

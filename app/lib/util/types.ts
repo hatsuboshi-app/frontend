@@ -21,3 +21,5 @@ export type EnumData<V> = {
     displayText: string,
     displayIcon: null
 }
+
+export type SortDirection = "asc" | "desc"
