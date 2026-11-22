@@ -4,6 +4,8 @@ import { IPIdol, PIdol } from "@hatsuboshi/types"
 import Link from "next/link"
 import { DEFAULT_LOCALE, PATHS } from "@/lib/util/consts"
 import SuspenseCard from "@/components/data/SuspenseCard"
+import { rarityMetadata } from "@/lib/metadata/enum/rarity";
+import { pIdolPlanMetadata } from "@/lib/metadata/enum/pIdolPlan";
 
 export default function PIdolCard({ pIdolJson }: { pIdolJson?: IPIdol }) {
     const pIdol = pIdolJson ? new PIdol(pIdolJson) : undefined
@@ -16,8 +18,8 @@ export default function PIdolCard({ pIdolJson }: { pIdolJson?: IPIdol }) {
             </p>
             <p className={"md"}>{pIdol.name[DEFAULT_LOCALE]}</p>
             <p className={"font-normal text-secondary-dark"}>
-                <span className={"uppercase"}>{pIdol.rarity}</span>&nbsp;&#183;&nbsp;
-                <span className={"capitalize"}>{pIdol.plan}</span>
+                <span className={"uppercase"}>{rarityMetadata.find(v => v.value === pIdol.rarity)?.displayText}</span>&nbsp;&#183;&nbsp;
+                <span className={"capitalize"}>{pIdolPlanMetadata.find(v => v.value === pIdol.plan)?.displayText}</span>
             </p>
             <div className={"flex flex-col mt-2 font-normal"}>
                 <div>

@@ -8,7 +8,7 @@ import { PATHS } from "@/lib/util/consts"
 
 export default async function SkillResults({ data }: { data?: Paginator<Skill, ISkill> }) {
     const isSuspense = !data
-    const path = `/${PATHS.skill}`
+    const path = PATHS.skill
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)

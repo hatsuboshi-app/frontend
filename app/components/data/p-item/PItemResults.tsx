@@ -8,7 +8,7 @@ import { PATHS } from "@/lib/util/consts"
 
 export default async function PItemResults({ data }: { data?: Paginator<PItem, IPItem> }) {
     const isSuspense = !data
-    const path = `/${PATHS.pItem}`
+    const path = PATHS.pItem
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)

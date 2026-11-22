@@ -1,14 +1,14 @@
 import React from "react"
-import { SortOption } from "@hatsuboshi/types"
+import {
+    IPersistentObject,
+    Override,
+    PersistentObjectFilter,
+    Sortable,
+    SortOption
+} from "@hatsuboshi/types"
+import { DropdownOption } from "@/components/input/DropdownMenu"
 
 export type ReactSetter<T> = React.Dispatch<React.SetStateAction<T>>
-
-export type GetOptions<F extends {}, I> = {
-    filter?: F,
-    sort?: SortOption<I>[],
-    p?: number,
-    pp?: number
-}
 
 export type FilterInputProps<V> = {
     title?: string
@@ -16,10 +16,19 @@ export type FilterInputProps<V> = {
     onChange?: (v: V) => void
 }
 
-export type EnumData<V> = {
-    value: V,
+export type SortDirection =
+    | "asc"
+    | "desc"
+
+export type EnumMetadata<V> = {
+    value:       V,
     displayText: string,
     displayIcon: null
 }
 
-export type SortDirection = "asc" | "desc"
+export type ResourceMetadata<I extends IPersistentObject, F extends PersistentObjectFilter> = {
+    defaultSortOption:  SortOption<I>
+    hiddenSortOptions?: SortOption<I>[]
+    sortFields?:        Override<DropdownOption, { id: Sortable<I> }>[]
+    flags?:             EnumMetadata<keyof F>[]
+}

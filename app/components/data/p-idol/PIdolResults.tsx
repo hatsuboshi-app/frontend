@@ -8,7 +8,7 @@ import { PATHS } from "@/lib/util/consts"
 
 export default async function PIdolResults({ data }: { data?: Paginator<PIdol, IPIdol> }) {
     const isSuspense = !data
-    const path = `/${PATHS.pIdol}`
+    const path = PATHS.pIdol
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)

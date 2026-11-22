@@ -1,8 +1,8 @@
-import { EnumData } from "@/lib/util/types"
+import { EnumMetadata } from "@/lib/util/types"
 import React from "react"
 
 type FilterButtonProps<T> = {
-    data: EnumData<T>
+    data: EnumMetadata<T>
     onClick?: () => void
     className?: string
     boolValue?: boolean

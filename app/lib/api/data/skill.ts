@@ -1,31 +1,17 @@
-import { fail, ISkill, Paginator, Result, Skill, SkillFilterOptions, success } from "@hatsuboshi/types"
-import { getGetURL, getHeader } from "@/lib/util/functions"
-import { GetOptions } from "@/lib/util/types"
+import { ISkill, ListRequest, Paginator, Result, Skill, SkillFilter, success } from "@hatsuboshi/types"
+import { API_PATHS } from "@/lib/util/consts"
+import { GET } from "@/lib/util/async"
 
-export async function getSkills(options: GetOptions<SkillFilterOptions, ISkill> = {}): Promise<Result<Paginator<Skill, ISkill>>> {
-    try {
-        const r = await fetch(await getGetURL("skills", options), {
-            method: "get",
-            headers: await getHeader()
-        })
-        if (r.status >= 400)
-            return fail((await r.json()).message)
-        return success(new Paginator<Skill, ISkill>(Skill, await r.json()))
-    } catch (e: any) {
-        return fail(e.message)
-    }
+export async function getSkills(options: ListRequest<SkillFilter, ISkill> = {}): Promise<Result<Paginator<Skill, ISkill>>> {
+    const path = API_PATHS.skill
+    const r = await GET(path, Skill.encodeListQuery(options))
+    if (!r.success) return r
+    return success(new Paginator<Skill, ISkill>(Skill, r.data))
 }
 
 export async function getSkillById(id: string): Promise<Result<Skill>> {
-    try {
-        const r = await fetch(await getGetURL(`skills/${id}`), {
-            method: "get",
-            headers: await getHeader()
-        })
-        if (r.status >= 400)
-            return fail((await r.json()).message)
-        return success(new Skill(await r.json()))
-    } catch (e: any) {
-        return fail(e.message)
-    }
+    const path = `${API_PATHS.skill}/${id}`
+    const r = await GET(path)
+    if (!r.success) return r
+    return success(new Skill(r.data))
 }

@@ -1,15 +1,15 @@
-import { EnumData, FilterInputProps } from "@/lib/util/types"
+import { EnumMetadata, FilterInputProps } from "@/lib/util/types"
 import { useEffect, useState } from "react"
-import { getCharacters } from "@/lib/api/data/character"
+import { listCharacters } from "@/lib/api/data/character"
 import EnumFilterInput from "@/components/widget/primitives/EnumFilterInput"
 import { Character } from "@hatsuboshi/types"
 
 export default function CharacterFilterInput({defaultValue, onChange, title}: FilterInputProps<string[]>) {
     const [characters, setCharacters] = useState<Character[]>([])
-    const [characterEnumData, setCharacterEnumData] = useState<EnumData<string>[]>([])
+    const [characterEnumData, setCharacterEnumData] = useState<EnumMetadata<string>[]>([])
 
     useEffect(() => {
-        getCharacters({ filter: { isPlayable: true }, pp: 100 }).then(r => {
+        listCharacters({ filter: { isPlayable: true }, perPage: 100 }).then(r => {
             if (r.success) setCharacters(r.data.data.sort((c1, c2) => c1.detail.height - c2.detail.height))
         })
     }, [])

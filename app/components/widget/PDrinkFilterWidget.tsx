@@ -1,46 +1,51 @@
 import useFilter from "@/lib/hooks/useFilter"
 import {
-    enumDefaultValueFromFilter,
+    decodePDrinkFilter,
+    encodePDrinkFilter,
+    getEnumFilterDefaultValue,
+    getNumberFilterDefaultValue,
+    getStringFilterDefaultValue,
     handleEnumFilterInput,
     handleNumberFilterInput,
-    handleStringFilterInput,
-    numberDefaultValueFromFilter,
-    pDrinkFilterExpand,
-    pDrinkFilterMinimize,
-    stringDefaultValueFromFilter
+    handleStringFilterInput
 } from "@/lib/util/functions"
 import FilterWidgetWrapper from "@/components/widget/wrappers/FilterWidgetWrapper"
 import StringFilterInput from "@/components/widget/primitives/StringFilterInput"
 import EnumFilterInput from "@/components/widget/primitives/EnumFilterInput"
-import { pDrinkPlans, pDrinkRarities } from "@/lib/data/p-drink"
 import NumberFilterInput from "@/components/widget/primitives/NumberFilterInput"
+import { rarityMetadata } from "@/lib/metadata/enum/rarity"
+import { planMetadata } from "@/lib/metadata/enum/plan"
 
 export default function PDrinkFilterWidget() {
-    const [filter, setFilter] = useFilter({ expand: pDrinkFilterExpand, minimize: pDrinkFilterMinimize })
+    const [filter, setFilter] = useFilter({ expand: decodePDrinkFilter, minimize: encodePDrinkFilter })
 
     return (
         <FilterWidgetWrapper>
             <p className={"lg"}>Search Produce Drinks</p>
+
             <StringFilterInput
                 title={"Name"}
-                defaultValue={stringDefaultValueFromFilter(filter.name)}
+                defaultValue={getStringFilterDefaultValue(filter.name)}
                 onChange={v => handleStringFilterInput(setFilter, "name", v)}
             />
+
             <EnumFilterInput
                 title={"Rarity"}
-                data={pDrinkRarities}
-                defaultValue={enumDefaultValueFromFilter(filter.rarity)}
+                data={rarityMetadata}
+                defaultValue={getEnumFilterDefaultValue(filter.rarity)}
                 onChange={v => handleEnumFilterInput(setFilter, "rarity", v)}
             />
+
             <NumberFilterInput
                 title={"Unlocking Level"}
-                defaultValue={numberDefaultValueFromFilter(filter.unlockLevel)}
+                defaultValue={getNumberFilterDefaultValue(filter.unlockLevel)}
                 onChange={v => handleNumberFilterInput(setFilter, "unlockLevel", v)}
             />
+
             <EnumFilterInput
                 title={"Plan"}
-                data={pDrinkPlans}
-                defaultValue={enumDefaultValueFromFilter(filter.plan)}
+                data={planMetadata}
+                defaultValue={getEnumFilterDefaultValue(filter.plan)}
                 onChange={v => handleEnumFilterInput(setFilter, "plan", v)}
             />
         </FilterWidgetWrapper>

@@ -2,22 +2,26 @@
 
 import React, { PropsWithChildren, useState } from "react"
 import { IPaginator } from "@hatsuboshi/types"
-import DropdownMenu, { DropdownItem, DropdownOption } from "@/components/input/DropdownMenu"
+import DropdownMenu, { DropdownOption } from "@/components/input/DropdownMenu"
 import { TbSortAscendingLetters, TbSortDescendingLetters } from "react-icons/tb"
-import { ALL_SORT_FIELDS, DEFAULT_PER_PAGE, DEFAULT_SORT_DIRECTIONS, DEFAULT_SORT_FIELDS } from "@/lib/util/consts"
+import {
+    DEFAULT_PER_PAGE,
+    RESOURCE_METADATA
+} from "@/lib/util/consts"
 import { usePathname } from "next/navigation"
 import { setUserPerPage } from "@/lib/api/cookies/perPage"
 import { setUserSortField } from "@/lib/api/cookies/sortField"
 import { setUserSortDirection } from "@/lib/api/cookies/sortDirection"
-import Paginator from "@/components/data/Paginator";
+import Paginator from "@/components/data/Paginator"
+import { SortDirection } from "@/lib/util/types";
 
-const perPageOptionList: DropdownItem[] = [
+const perPageOptionList: DropdownOption[] = [
     { id: "10", label: "10" },
     { id: "15", label: "15" },
     { id: "30", label: "30" },
 ]
 
-const sortDirectionOptionList: DropdownItem[] = [
+const sortDirectionOptionList: DropdownOption[] = [
     { id: "asc", label: "Ascending", icon: TbSortAscendingLetters },
     { id: "desc", label: "Descending", icon: TbSortDescendingLetters }
 ]
@@ -32,20 +36,23 @@ type ResultsWrapperProps = {
 
 export default function ResultsWrapper({ children, paginatorMeta, pageSize, currentSortField, currentSortDirection, className }: PropsWithChildren<ResultsWrapperProps>) {
     const pathname = usePathname()
+    const metadata = RESOURCE_METADATA[pathname]
 
-    const sortFieldOptionList: DropdownItem[] = ALL_SORT_FIELDS[pathname] ?? []
+    const sortFieldOptionList: DropdownOption[] = metadata.sortFields ?? []
 
     const [sortField, setSortField] = useState<DropdownOption>(
-        sortFieldOptionList.find(i => !i.separator && i.id === currentSortField) as DropdownOption ??
-        sortFieldOptionList.find(i => !i.separator && i.id === (DEFAULT_SORT_FIELDS[pathname] ?? "")) as DropdownOption
+        sortFieldOptionList.find(i => i.id === currentSortField) as DropdownOption ??
+        sortFieldOptionList.find(i => i.id === (metadata.defaultSortOption.attribute ?? "")) as DropdownOption
     )
+
     const [sortDirection, setSortDirection] = useState<DropdownOption>(
-        sortDirectionOptionList.find(i => !i.separator && i.id === currentSortDirection) as DropdownOption ??
-        sortDirectionOptionList.find(i => !i.separator && i.id === (DEFAULT_SORT_DIRECTIONS[pathname] ?? "asc")) as DropdownOption
+        sortDirectionOptionList.find(i => i.id === currentSortDirection) as DropdownOption ??
+        sortDirectionOptionList.find(i => i.id === (!metadata.defaultSortOption.ascending ? "desc" : "asc")) as DropdownOption
     )
+
     const [perPage, setPerPage] = useState<DropdownOption>(
-        perPageOptionList.find(i => !i.separator && i.id === (paginatorMeta ? paginatorMeta.pageSize.toString() : pageSize?.toString())) as DropdownOption ??
-        perPageOptionList.find(i => !i.separator && i.id === DEFAULT_PER_PAGE.toString())
+        perPageOptionList.find(i => i.id === (paginatorMeta ? paginatorMeta.pageSize.toString() : pageSize?.toString())) as DropdownOption ??
+        perPageOptionList.find(i => i.id === DEFAULT_PER_PAGE.toString())
     )
 
     return (
@@ -68,7 +75,7 @@ export default function ResultsWrapper({ children, paginatorMeta, pageSize, curr
                         label={""} align={"right"} items={sortDirectionOptionList} selectedId={sortDirection.id}
                         onSelect={o => {
                             setSortDirection(o)
-                            setUserSortDirection(pathname, o.id).then()
+                            setUserSortDirection(pathname, o.id as SortDirection).then()
                         }}
                     />
                 </div>

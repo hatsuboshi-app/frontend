@@ -8,7 +8,7 @@ import { PATHS } from "@/lib/util/consts"
 
 export default async function CharacterResults({ data }: { data?: Paginator<Character, ICharacter> }) {
     const isSuspense = !data
-    const path = `/${PATHS.character}`
+    const path = PATHS.character
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)

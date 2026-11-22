@@ -1,14 +1,21 @@
 import { SearchParams } from "next/dist/server/request/search-params"
-import { getPageAndFilterFromSearchParams, getSortOption, pDrinkFilterExpand } from "@/lib/util/functions"
-import { IPDrink, PDrinkFilterOptions } from "@hatsuboshi/types"
-import { getPDrinks } from "@/lib/api/data/p-drink"
+import { decodePDrinkFilter, getFilterFromQuery, getPageFromQuery } from "@/lib/util/functions"
+import { IPDrink, PDrinkFilter } from "@hatsuboshi/types"
+import { listPDrinks } from "@/lib/api/data/p-drink"
 import PDrinkResults from "@/components/data/p-drink/PDrinkResults"
-import { PATHS } from "@/lib/util/consts";
+import { PATHS } from "@/lib/util/consts"
+import { getUserSortOptions } from "@/lib/util/async"
 
 export default async function PDrinkSearch({ searchParams }: { searchParams: SearchParams }) {
-    const [p, filter] = getPageAndFilterFromSearchParams<PDrinkFilterOptions>(searchParams, pDrinkFilterExpand)
-    const sort = await getSortOption<IPDrink>(`/${PATHS.pDrink}`)
-    const res = await getPDrinks({ p, filter, sort })
+    // get from query
+    const page = getPageFromQuery(searchParams)
+    const filter  = getFilterFromQuery<PDrinkFilter>(searchParams, decodePDrinkFilter)
+
+    // get from cookies
+    const sort = await getUserSortOptions<IPDrink>(PATHS.pDrink)
+
+    // retrieve
+    const res = await listPDrinks({ page, filter, sort })
     if (!res.success) return null
 
     return <PDrinkResults data={res.data}/>
