@@ -15,6 +15,7 @@ export default async function PIdolResults({ data }: { data?: Paginator<PIdol, I
 
     return (
         <ResultsWrapper
+            path={path}
             paginatorMeta={isSuspense ? undefined : data.meta}
             pageSize={isSuspense ? pageSize : undefined}
             currentSortField={sortField}

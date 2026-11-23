@@ -7,6 +7,7 @@ import {
     SortOption
 } from "@hatsuboshi/types"
 import { DropdownOption } from "@/components/input/DropdownMenu"
+import { PATHS } from "@/lib/util/consts";
 
 export type ReactSetter<T> = React.Dispatch<React.SetStateAction<T>>
 
@@ -19,6 +20,8 @@ export type FilterInputProps<V> = {
 export type SortDirection =
     | "asc"
     | "desc"
+
+export type ResourcePath = typeof PATHS[keyof typeof PATHS]
 
 export type EnumMetadata<V> = {
     value:       V,

@@ -1,10 +1,13 @@
 import { ISkill, ListRequest, Paginator, Result, Skill, SkillFilter, success } from "@hatsuboshi/types"
-import { API_PATHS } from "@/lib/util/consts"
-import { GET } from "@/lib/util/async"
+import { API_PATHS, PATHS } from "@/lib/util/consts"
+import { GET, getUserSortOptions } from "@/lib/util/async"
+import { getUserPerPage } from "@/lib/api/cookies/perPage"
 
-export async function getSkills(options: ListRequest<SkillFilter, ISkill> = {}): Promise<Result<Paginator<Skill, ISkill>>> {
+export async function listSkills(options: ListRequest<SkillFilter, ISkill> = {}): Promise<Result<Paginator<Skill, ISkill>>> {
     const path = API_PATHS.skill
-    const r = await GET(path, Skill.encodeListQuery(options))
+    const sort = options.sort ?? await getUserSortOptions<ISkill>(PATHS.skill)
+    const perPage = options.perPage ?? await getUserPerPage()
+    const r = await GET(path, Skill.encodeListQuery({ ...options, sort, perPage }))
     if (!r.success) return r
     return success(new Paginator<Skill, ISkill>(Skill, r.data))
 }

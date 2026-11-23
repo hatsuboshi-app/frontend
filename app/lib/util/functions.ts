@@ -32,9 +32,18 @@ export function getPageFromQuery(q: SearchParams): number {
 
 export function getFilterFromQuery<F extends {}>(q: SearchParams, filterExpand: (s?: string) => F | undefined): F | undefined {
     const filter = q[SEARCH_PARAM_FILTER]
-    return filter
-        ? filterExpand(decompressFromEncodedURIComponent(typeof filter === "string" ? filter : filter[0]))
-        : undefined
+    const f = filter ? typeof filter === "string" ? filter : filter[0] : undefined
+    return safeDecodeFilter(f, filterExpand)
+}
+
+export function safeDecodeFilter<F>(raw: string | null | undefined, decode: (s?: string) => F | undefined): F | undefined {
+    if (!raw) return undefined
+    try {
+        const s = decompressFromEncodedURIComponent(raw)
+        return s ? decode(s) : undefined
+    } catch {
+        return undefined
+    }
 }
 
 export function formatMinimizedParam(key: string, condition: string | undefined): string | undefined {
@@ -138,10 +147,10 @@ export function encodeNumberFilter(f?: NumberFilterOptions): string | undefined 
      */
     if (f === undefined) return undefined
     const conditions: string[] = []
-    if (f.lte) {
+    if (f.lte !== undefined) {
         conditions.push(`<${f.lte}`)
     }
-    if (f.gte) {
+    if (f.gte !== undefined) {
         conditions.push(`>${f.gte}`)
     }
     return conditions.join(COND_SEPARATOR)

@@ -1,10 +1,13 @@
 import { IPIdol, ListRequest, Paginator, PIdol, PIdolFilter, Result, success } from "@hatsuboshi/types"
-import { API_PATHS } from "@/lib/util/consts"
-import { GET } from "@/lib/util/async"
+import { API_PATHS, PATHS } from "@/lib/util/consts"
+import { GET, getUserSortOptions } from "@/lib/util/async"
+import { getUserPerPage } from "@/lib/api/cookies/perPage"
 
-export async function getPIdols(options: ListRequest<PIdolFilter, IPIdol> = {}): Promise<Result<Paginator<PIdol, IPIdol>>> {
+export async function listPIdols(options: ListRequest<PIdolFilter, IPIdol> = {}): Promise<Result<Paginator<PIdol, IPIdol>>> {
     const path = API_PATHS.pIdol
-    const r = await GET(path, PIdol.encodeListQuery(options))
+    const sort = options.sort ?? await getUserSortOptions<IPIdol>(PATHS.pIdol)
+    const perPage = options.perPage ?? await getUserPerPage()
+    const r = await GET(path, PIdol.encodeListQuery({ ...options, sort, perPage }))
     if (!r.success) return r
     return success(new Paginator<PIdol, IPIdol>(PIdol, r.data))
 }

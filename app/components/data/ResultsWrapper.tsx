@@ -4,16 +4,12 @@ import React, { PropsWithChildren, useState } from "react"
 import { IPaginator } from "@hatsuboshi/types"
 import DropdownMenu, { DropdownOption } from "@/components/input/DropdownMenu"
 import { TbSortAscendingLetters, TbSortDescendingLetters } from "react-icons/tb"
-import {
-    DEFAULT_PER_PAGE,
-    RESOURCE_METADATA
-} from "@/lib/util/consts"
-import { usePathname } from "next/navigation"
+import { DEFAULT_PER_PAGE, RESOURCE_METADATA } from "@/lib/util/consts"
 import { setUserPerPage } from "@/lib/api/cookies/perPage"
 import { setUserSortField } from "@/lib/api/cookies/sortField"
 import { setUserSortDirection } from "@/lib/api/cookies/sortDirection"
 import Paginator from "@/components/data/Paginator"
-import { SortDirection } from "@/lib/util/types";
+import { ResourcePath, SortDirection } from "@/lib/util/types"
 
 const perPageOptionList: DropdownOption[] = [
     { id: "10", label: "10" },
@@ -27,6 +23,7 @@ const sortDirectionOptionList: DropdownOption[] = [
 ]
 
 type ResultsWrapperProps = {
+    path: ResourcePath
     paginatorMeta?: IPaginator<any>["meta"],
     pageSize?: number
     currentSortField?: string
@@ -34,10 +31,8 @@ type ResultsWrapperProps = {
     className?: string
 }
 
-export default function ResultsWrapper({ children, paginatorMeta, pageSize, currentSortField, currentSortDirection, className }: PropsWithChildren<ResultsWrapperProps>) {
-    const pathname = usePathname()
-    const metadata = RESOURCE_METADATA[pathname]
-
+export default function ResultsWrapper({ children, path, paginatorMeta, pageSize, currentSortField, currentSortDirection, className }: PropsWithChildren<ResultsWrapperProps>) {
+    const metadata = RESOURCE_METADATA[path]
     const sortFieldOptionList: DropdownOption[] = metadata.sortFields ?? []
 
     const [sortField, setSortField] = useState<DropdownOption>(
@@ -68,14 +63,14 @@ export default function ResultsWrapper({ children, paginatorMeta, pageSize, curr
                         label={"Sort by"} labelPosition={"left"} items={sortFieldOptionList} selectedId={sortField.id}
                         onSelect={o => {
                             setSortField(o)
-                            setUserSortField(pathname, o.id).then()
+                            setUserSortField(path, o.id).then()
                         }}
                     />
                     <DropdownMenu
                         label={""} align={"right"} items={sortDirectionOptionList} selectedId={sortDirection.id}
                         onSelect={o => {
                             setSortDirection(o)
-                            setUserSortDirection(pathname, o.id as SortDirection).then()
+                            setUserSortDirection(path, o.id as SortDirection).then()
                         }}
                     />
                 </div>

@@ -1,5 +1,5 @@
 import { characterMetadata } from "@/lib/metadata/resource/character"
-import { ResourceMetadata } from "@/lib/util/types"
+import { ResourceMetadata, ResourcePath } from "@/lib/util/types"
 import { pDrinkMetadata } from "@/lib/metadata/resource/p-drink";
 import { pIdolMetadata } from "@/lib/metadata/resource/p-idol";
 import { pItemMetadata } from "@/lib/metadata/resource/p-item";
@@ -40,7 +40,7 @@ export const PATHS = {
     pItem:       "p-item",
     skill:       "skill",
     supportCard: "support-card"
-}
+} as const
 
 export const API_PATHS = {
     effect:      "effects",
@@ -54,10 +54,11 @@ export const API_PATHS = {
 }
 
 export const RESOURCE_METADATA = {
-    [`/${PATHS.character}`]: characterMetadata,
-    [`/${PATHS.pDrink}`]:    pDrinkMetadata,
-    [`/${PATHS.pIdol}`]:     pIdolMetadata,
-    [`/${PATHS.pItem}`]:     pItemMetadata,
-    [`/${PATHS.skill}`]:     skillMetadata,
+    [PATHS.character]:   characterMetadata,
+    [PATHS.pDrink]:      pDrinkMetadata,
+    [PATHS.pIdol]:       pIdolMetadata,
+    [PATHS.pItem]:       pItemMetadata,
+    [PATHS.skill]:       skillMetadata,
+    [PATHS.supportCard]: characterMetadata
 } as const satisfies
-    Record<`/${typeof PATHS[keyof typeof PATHS]}`, ResourceMetadata<any, any>>
+    Record<ResourcePath, ResourceMetadata<any, any>>

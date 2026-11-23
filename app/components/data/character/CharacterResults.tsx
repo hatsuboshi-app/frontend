@@ -15,6 +15,7 @@ export default async function CharacterResults({ data }: { data?: Paginator<Char
 
     return (
         <ResultsWrapper
+            path={path}
             paginatorMeta={isSuspense ? undefined : data.meta}
             pageSize={isSuspense ? pageSize : undefined}
             currentSortField={sortField}

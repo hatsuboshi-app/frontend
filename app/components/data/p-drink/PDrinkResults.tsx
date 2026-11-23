@@ -15,6 +15,7 @@ export default async function PDrinkResults({ data }: { data?: Paginator<PDrink,
 
     return (
         <ResultsWrapper
+            path={path}
             paginatorMeta={isSuspense ? undefined : data.meta}
             pageSize={isSuspense ? pageSize : undefined}
             currentSortField={sortField}

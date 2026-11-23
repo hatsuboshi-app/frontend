@@ -3,6 +3,7 @@ import { getUserSortField } from "@/lib/api/cookies/sortField"
 import { getUserSortDirection } from "@/lib/api/cookies/sortDirection"
 import { API_URI, API_VERSION, RESOURCE_METADATA } from "@/lib/util/consts"
 import { prependSortOption } from "@/lib/util/functions"
+import { ResourcePath } from "@/lib/util/types";
 
 export async function getHeader(): Promise<Headers> {
     const headers: Headers = new Headers()
@@ -11,11 +12,11 @@ export async function getHeader(): Promise<Headers> {
     return headers
 }
 
-export async function getUserSortOptions<T>(path: string): Promise<SortOption<T>[]> {
+export async function getUserSortOptions<T>(path: ResourcePath): Promise<SortOption<T>[]> {
     const field = await getUserSortField(path)
     const direction = await getUserSortDirection(path)
     const s: SortOption<any> = { attribute: field, ascending: direction === "asc" }
-    const s1 = RESOURCE_METADATA[`/${path}`].hiddenSortOptions ?? []
+    const s1 = RESOURCE_METADATA[path].hiddenSortOptions ?? []
     return prependSortOption(s, s1)
 }
 
