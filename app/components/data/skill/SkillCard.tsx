@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ISkill, Skill } from "@hatsuboshi/types"
 import SuspenseCard from "@/components/data/SuspenseCard"
 import { DEFAULT_LOCALE, PATHS } from "@/lib/util/consts"
+import { skillRarityMetadata } from "@/lib/metadata/enum/skillRarity";
 
 export default function SkillCard({ skillJson }: { skillJson?: ISkill }) {
     const skill = skillJson ? new Skill(skillJson) : undefined
@@ -12,8 +13,12 @@ export default function SkillCard({ skillJson }: { skillJson?: ISkill }) {
         // hydrated
         <Link href={`/${PATHS.skill}/${skill.id}`} className={`card sm`}>
             <div className={"md"}>
-                <span>{skill.name[DEFAULT_LOCALE]}</span>
-                <span className={"ml-3 text-accent font-medium"}>{skill.consolidatedRarity.toUpperCase()}</span>
+                <span>
+                    {skill.name[DEFAULT_LOCALE]}
+                </span>
+                <span className={"ml-3 text-accent font-medium"}>
+                    {skillRarityMetadata.find(m => m.value === skill.rarity)?.displayText}
+                </span>
             </div>
             <div>
                 {skill.currentEffect.plaintext.map((t, i) =>

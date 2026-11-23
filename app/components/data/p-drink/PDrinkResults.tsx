@@ -8,13 +8,14 @@ import { PATHS } from "@/lib/util/consts"
 
 export default async function PDrinkResults({ data }: { data?: Paginator<PDrink, IPDrink> }) {
     const isSuspense = !data
-    const path = `/${PATHS.pDrink}`
+    const path = PATHS.pDrink
     const pageSize = await getUserPerPage()
     const sortField = await getUserSortField(path)
     const sortDirection = await getUserSortDirection(path)
 
     return (
         <ResultsWrapper
+            path={path}
             paginatorMeta={isSuspense ? undefined : data.meta}
             pageSize={isSuspense ? pageSize : undefined}
             currentSortField={sortField}

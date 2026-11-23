@@ -2,13 +2,14 @@ import { ReactSetter } from "@/lib/util/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { FILTER_DEBOUNCE_TIME, SEARCH_PARAM_FILTER, URL_REPLACE_THROTTLE_TIME } from "@/lib/util/consts"
 import { useEffect, useState } from "react"
-import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string"
+import { compressToEncodedURIComponent } from "lz-string"
 import useDebouncer from "@/lib/hooks/useDebouncer"
 import useThrottledCallback from "@/lib/hooks/useThrottledCallback"
+import { safeDecodeFilter } from "@/lib/util/functions";
 
 type UseFilterProps<T extends object> = {
-    expand: (raw: string) => T | undefined,
-    minimize: (filter: T) => string | undefined
+    expand: (raw?: string) => T | undefined,
+    minimize: (filter?: T) => string | undefined
 }
 
 export default function useFilter<T extends object>({ expand, minimize }: UseFilterProps<T>): [T, ReactSetter<T>] {
@@ -17,10 +18,7 @@ export default function useFilter<T extends object>({ expand, minimize }: UseFil
     const searchParams = useSearchParams()
 
     const f = searchParams.get(SEARCH_PARAM_FILTER)
-    const [filter, setFilter] = useState<T>(f
-        ? expand(decompressFromEncodedURIComponent(f)) ?? ({} as T)
-        : ({} as T)
-    )
+    const [filter, setFilter] = useState<T>(() => safeDecodeFilter(f, expand) ?? ({} as T))
     const [debouncedFilter] = useDebouncer(filter, FILTER_DEBOUNCE_TIME)
 
     const throttledReplaceUrl = useThrottledCallback((params: URLSearchParams) => {

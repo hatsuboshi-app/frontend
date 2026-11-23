@@ -1,9 +1,9 @@
-import { EnumData, FilterInputProps } from "@/lib/util/types"
+import { EnumMetadata, FilterInputProps } from "@/lib/util/types"
 import React, { useEffect, useState } from "react"
 import FilterButton from "@/components/input/FilterButton"
 import useDebouncer from "@/lib/hooks/useDebouncer"
 
-export default function BooleanFilterInput<T extends string>({ defaultValue, onChange, title, data }: FilterInputProps<Partial<Record<T, boolean>>> & { data: EnumData<T>[] }) {
+export default function BooleanFilterInput<T extends string>({ defaultValue, onChange, title, data }: FilterInputProps<Partial<Record<T, boolean>>> & { data: EnumMetadata<T>[] }) {
     const [flags, setFlags] = useState<Partial<Record<T, boolean>>>(defaultValue ?? {})
     const [debouncedFlags, _] = useDebouncer(flags)
 

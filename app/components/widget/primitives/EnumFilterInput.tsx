@@ -1,9 +1,9 @@
-import { EnumData, FilterInputProps } from "@/lib/util/types"
+import { EnumMetadata, FilterInputProps } from "@/lib/util/types"
 import React, { useEffect, useState } from "react"
 import FilterButton from "@/components/input/FilterButton"
 import useDebouncer from "@/lib/hooks/useDebouncer"
 
-export default function EnumFilterInput<T>({ defaultValue, onChange, title, data }: FilterInputProps<T[]> & { data: EnumData<T>[] }) {
+export default function EnumFilterInput<T>({ defaultValue, onChange, title, data }: FilterInputProps<T[]> & { data: EnumMetadata<T>[] }) {
     const [selected, setSelected] = useState<T[]>(defaultValue ?? [])
     const [debouncedSelected, _] = useDebouncer(selected)
 

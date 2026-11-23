@@ -1,32 +1,20 @@
-import { GetOptions } from "@/lib/util/types"
-import { fail, IPIdol, Paginator, PIdol, PIdolFilterOptions, Result, success } from "@hatsuboshi/types"
-import { getGetURL, getHeader } from "@/lib/util/functions"
-import { API_PATHS } from "@/lib/util/consts"
+import { IPIdol, ListRequest, Paginator, PIdol, PIdolFilter, Result, success } from "@hatsuboshi/types"
+import { API_PATHS, PATHS } from "@/lib/util/consts"
+import { GET, getUserSortOptions } from "@/lib/util/async"
+import { getUserPerPage } from "@/lib/api/cookies/perPage"
 
-export async function getPIdols(options: GetOptions<PIdolFilterOptions, IPIdol> = {}): Promise<Result<Paginator<PIdol, IPIdol>>> {
-    try {
-        const r = await fetch(await getGetURL(API_PATHS.pIdol, options), {
-            method: "get",
-            headers: await getHeader()
-        })
-        if (r.status >= 400)
-            return fail((await r.json()).message)
-        return success(new Paginator<PIdol, IPIdol>(PIdol, await r.json()))
-    } catch (e: any) {
-        return fail(e.message)
-    }
+export async function listPIdols(options: ListRequest<PIdolFilter, IPIdol> = {}): Promise<Result<Paginator<PIdol, IPIdol>>> {
+    const path = API_PATHS.pIdol
+    const sort = options.sort ?? await getUserSortOptions<IPIdol>(PATHS.pIdol)
+    const perPage = options.perPage ?? await getUserPerPage()
+    const r = await GET(path, PIdol.encodeListQuery({ ...options, sort, perPage }))
+    if (!r.success) return r
+    return success(new Paginator<PIdol, IPIdol>(PIdol, r.data))
 }
 
 export async function getPIdolById(id: string): Promise<Result<PIdol>> {
-    try {
-        const r = await fetch(await getGetURL(`${API_PATHS.pIdol}/${id}`), {
-            method: "get",
-            headers: await getHeader()
-        })
-        if (r.status >= 400)
-            return fail((await r.json()).message)
-        return success(new PIdol(await r.json()))
-    } catch (e: any) {
-        return fail(e.message)
-    }
+    const path = `${API_PATHS.pIdol}/${id}`
+    const r = await GET(path)
+    if (!r.success) return r
+    return success(new PIdol(r.data))
 }

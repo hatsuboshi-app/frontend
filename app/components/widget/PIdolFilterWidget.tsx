@@ -1,54 +1,56 @@
 import useFilter from "@/lib/hooks/useFilter"
 import {
-    booleanDefaultValueFromFilter,
-    enumDefaultValueFromFilter,
+    decodePIdolFilter,
+    encodePIdolFilter,
+    getBooleanFilterDefaultValue,
+    getEnumFilterDefaultValue,
+    getStringFilterDefaultValue,
     handleBooleanFilterInput,
     handleEnumFilterInput,
-    handleStringFilterInput,
-    pIdolFilterExpand,
-    pIdolFilterMinimize,
-    stringDefaultValueFromFilter
+    handleStringFilterInput
 } from "@/lib/util/functions"
 import FilterWidgetWrapper from "@/components/widget/wrappers/FilterWidgetWrapper"
 import StringFilterInput from "@/components/widget/primitives/StringFilterInput"
 import EnumFilterInput from "@/components/widget/primitives/EnumFilterInput"
-import { pIdolFlagKeys, pIdolFlags, pIdolPlans, pIdolRarities } from "@/lib/data/p-idol"
+import { pIdolMetadata } from "@/lib/metadata/resource/p-idol"
 import CharacterFilterInput from "@/components/widget/primitives/CharacterFilterInput"
 import BooleanFilterInput from "@/components/widget/primitives/BooleanFilterInput"
+import { rarityMetadata } from "@/lib/metadata/enum/rarity"
+import { pIdolPlanMetadata } from "@/lib/metadata/enum/pIdolPlan"
 
 export default function PIdolFilterWidget() {
-    const [filter, setFilter] = useFilter({ expand: pIdolFilterExpand, minimize: pIdolFilterMinimize })
+    const [filter, setFilter] = useFilter({ expand: decodePIdolFilter, minimize: encodePIdolFilter })
 
     return (
         <FilterWidgetWrapper>
             <p className={"lg"}>Search Produce Idols</p>
             <StringFilterInput
                 title={"Name"}
-                defaultValue={stringDefaultValueFromFilter(filter.name)}
+                defaultValue={getStringFilterDefaultValue(filter.name)}
                 onChange={v => handleStringFilterInput(setFilter, "name", v)}
             />
             <EnumFilterInput
-                data={pIdolRarities}
+                data={rarityMetadata}
                 title={"Rarity"}
-                defaultValue={enumDefaultValueFromFilter(filter.rarity)}
+                defaultValue={getEnumFilterDefaultValue(filter.rarity)}
                 onChange={v => handleEnumFilterInput(setFilter, "rarity", v)}
             />
             <EnumFilterInput
-                data={pIdolPlans}
+                data={pIdolPlanMetadata}
                 title={"Plan"}
-                defaultValue={enumDefaultValueFromFilter(filter.plan)}
+                defaultValue={getEnumFilterDefaultValue(filter.plan)}
                 onChange={v => handleEnumFilterInput(setFilter, "plan", v)}
             />
             <CharacterFilterInput
                 title={"Character"}
-                defaultValue={enumDefaultValueFromFilter(filter.character)}
+                defaultValue={getEnumFilterDefaultValue(filter.character)}
                 onChange={v => handleEnumFilterInput(setFilter, "character", v)}
             />
             <BooleanFilterInput
-                data={pIdolFlags}
+                data={pIdolMetadata.flags!}
                 title={"Others"}
-                defaultValue={booleanDefaultValueFromFilter(filter, pIdolFlagKeys)}
-                onChange={v => handleBooleanFilterInput(setFilter, pIdolFlagKeys, v)}
+                defaultValue={getBooleanFilterDefaultValue(filter, pIdolMetadata.flags!.map(v => v.value))}
+                onChange={v => handleBooleanFilterInput(setFilter, pIdolMetadata.flags!.map(v => v.value), v)}
             />
         </FilterWidgetWrapper>
     )

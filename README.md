@@ -19,9 +19,6 @@
 - Organize, design & visualize skill card / support card loadouts without committing to a produce run
 - Various useful tools to help with raising your tantou idol to become the Prima Stella, and beyond!
 
-> [!IMPORTANT]
-> This project is hand-built by a fellow producer **without the use of any AI-generated content / code**.
-
 **Feature demonstrations will be added here as they become available.**
 
 ## Technical Details
